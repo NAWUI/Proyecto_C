@@ -1,0 +1,238 @@
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+// Estructura para la fecha de nacimiento
+typedef struct {
+    int dia;
+    int mes;
+    int anio;
+} Fecha;
+
+// Estructura para el registro de salud
+typedef struct {
+    char nombre[30];
+    char apellido[30];
+    char sexo;
+    Fecha fechaNacimiento;
+    float peso;  // en Kg
+    float altura; // en metros
+} RegistroSalud;
+
+// Función para ingresar los datos de una persona
+void ingresarDatos(RegistroSalud *persona) {
+    printf("Ingrese el primer nombre: ");
+    scanf("%s", persona->nombre);
+    printf("Ingrese el apellido: ");
+    scanf("%s", persona->apellido);
+    printf("Ingrese el sexo (M/F): ");
+    scanf(" %c", &persona->sexo);
+    printf("Ingrese la fecha de nacimiento (dd mm aaaa): ");
+    scanf("%d %d %d", &persona->fechaNacimiento.dia, &persona->fechaNacimiento.mes, &persona->fechaNacimiento.anio);
+    printf("Ingrese el peso en kg: ");
+    scanf("%f", &persona->peso);
+    printf("Ingrese la altura en metros: ");
+    scanf("%f", &persona->altura);
+}
+
+// Función para calcular la edad
+int calcularEdad(Fecha fechaNacimiento) {
+    time_t t = time(NULL);
+    struct tm tiempoActual = *localtime(&t);
+
+    int anioActual = tiempoActual.tm_year + 1900;
+    int mesActual = tiempoActual.tm_mon + 1;
+    int diaActual = tiempoActual.tm_mday;
+
+    int edad = anioActual - fechaNacimiento.anio;
+    if (mesActual < fechaNacimiento.mes || (mesActual == fechaNacimiento.mes && diaActual < fechaNacimiento.dia)) {
+        edad--;
+    }
+    return edad;
+}
+
+// Función para calcular el IMC
+float calcularIMC(RegistroSalud persona) {
+    return persona.peso / (persona.altura * persona.altura);
+}
+
+// Función para categorizar el IMC
+void clasificarIMC(float imc) {
+    if (imc < 18.5) {
+        printf("Bajo de peso.\n");
+    } else if (imc >= 18.5 && imc < 25) {
+        printf("Peso normal.\n");
+    } else if (imc >= 25 && imc < 30) {
+        printf("Sobrepeso.\n");
+    } else {
+        printf("Obesidad.\n");
+    }
+}
+
+// Función para mostrar los datos del registro de salud
+void mostrarDatos(RegistroSalud persona) {
+    printf("\n--- Datos del Registro de Salud ---\n");
+    printf("Nombre: %s %s\n", persona.nombre, persona.apellido);
+    printf("Sexo: %c\n", persona.sexo);
+    printf("Fecha de nacimiento: %02d/%02d/%d\n", persona.fechaNacimiento.dia, persona.fechaNacimiento.mes, persona.fechaNacimiento.anio);
+    printf("Peso: %.2f kg\n", persona.peso);
+    printf("Altura: %.2f metros\n", persona.altura);
+
+    int edad = calcularEdad(persona.fechaNacimiento);
+    printf("Edad: %d años\n", edad);
+
+    float imc = calcularIMC(persona);
+    printf("IMC: %.2f\n", imc);
+    clasificarIMC(imc);
+}
+
+int main() {
+    RegistroSalud persona;
+
+    ingresarDatos(&persona);
+    mostrarDatos(persona);
+
+    return 0;
+}
+----
+#include <stdio.h>
+#include <string.h>
+
+// Estructura para Aula
+typedef struct {
+    int nroID;
+    char bloque[10];
+    char tipo[20];
+    int mesas;
+    int sillas;
+    int pizarras;
+    struct {
+        char marca[20];
+        char color[10];
+        int controlRemoto;
+    } proyector;
+} Aula;
+
+// Función para ingresar los datos de un aula
+void ingresarAula(Aula *aula) {
+    printf("Ingrese el número de identificación del aula: ");
+    scanf("%d", &aula->nroID);
+    printf("Ingrese el bloque: ");
+    scanf("%s", aula->bloque);
+    printf("Ingrese el tipo de aula: ");
+    scanf("%s", aula->tipo);
+    printf("Ingrese la cantidad de mesas: ");
+    scanf("%d", &aula->mesas);
+    printf("Ingrese la cantidad de sillas: ");
+    scanf("%d", &aula->sillas);
+    printf("Ingrese la cantidad de pizarras: ");
+    scanf("%d", &aula->pizarras);
+    printf("Ingrese la marca del proyector: ");
+    scanf("%s", aula->proyector.marca);
+    printf("Ingrese el color del proyector: ");
+    scanf("%s", aula->proyector.color);
+    printf("¿El proyector tiene control remoto? (1 = Sí, 0 = No): ");
+    scanf("%d", &aula->proyector.controlRemoto);
+}
+
+// Función para mostrar los datos de un aula
+void mostrarAula(Aula aula) {
+    printf("\n--- Datos del Aula ---\n");
+    printf("Número de identificación: %d\n", aula.nroID);
+    printf("Bloque: %s\n", aula.bloque);
+    printf("Tipo de aula: %s\n", aula.tipo);
+    printf("Cantidad de mesas: %d\n", aula.mesas);
+    printf("Cantidad de sillas: %d\n", aula.sillas);
+    printf("Cantidad de pizarras: %d\n", aula.pizarras);
+    printf("Proyector marca: %s\n", aula.proyector.marca);
+    printf("Color del proyector: %s\n", aula.proyector.color);
+    printf("¿Proyector con control remoto?: %s\n", aula.proyector.controlRemoto ? "Sí" : "No");
+}
+
+int main() {
+    Aula aulas[100];
+    int cantidadAulas = 0;
+    char continuar;
+
+    do {
+        ingresarAula(&aulas[cantidadAulas]);
+        cantidadAulas++;
+        printf("¿Desea ingresar otra aula? (s/n): ");
+        scanf(" %c", &continuar);
+    } while (continuar == 's');
+
+    for (int i = 0; i < cantidadAulas; i++) {
+        mostrarAula(aulas[i]);
+    }
+
+    return 0;
+}
+---
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+// Estructura para empleado
+typedef struct {
+    char nombre[30];
+    char tipoDocumento[20];
+    int numeroDocumento;
+    char direccion[50];
+    struct {
+        int dia;
+        int mes;
+        int anio;
+    } fechaNacimiento;
+    char estadoCivil[20];
+    int hijos;
+    char sexo;
+} Empleado;
+
+// Función para cargar los datos de un empleado
+void cargarEmpleado(Empleado *empleado) {
+    printf("Ingrese el nombre: ");
+    scanf("%s", empleado->nombre);
+    printf("Ingrese el tipo de documento: ");
+    scanf("%s", empleado->tipoDocumento);
+    printf("Ingrese el número de documento: ");
+    scanf("%d", &empleado->numeroDocumento);
+    printf("Ingrese la dirección: ");
+    scanf("%s", empleado->direccion);
+    printf("Ingrese la fecha de nacimiento (dd mm aaaa): ");
+    scanf("%d %d %d", &empleado->fechaNacimiento.dia, &empleado->fechaNacimiento.mes, &empleado->fechaNacimiento.anio);
+    printf("Ingrese el estado civil: ");
+    scanf("%s", empleado->estadoCivil);
+    printf("Ingrese la cantidad de hijos: ");
+    scanf("%d", &empleado->hijos);
+    printf("Ingrese el sexo (M/F): ");
+    scanf(" %c", &empleado->sexo);
+}
+
+// Función para cargar n empleados
+void cargarEmpleados(Empleado empleados[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("\n--- Empleado %d ---\n", i + 1);
+        cargarEmpleado(&empleados[i]);
+    }
+}
+
+// Función para buscar y mostrar un empleado por tipo y número de documento
+void buscarEmpleado(Empleado empleados[], int n, char tipo[], int numero) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp(empleados[i].tipoDocumento, tipo) == 0 && empleados[i].numeroDocumento == numero) {
+            printf("\n--- Datos del Empleado ---\n");
+            printf("Nombre: %s\n", empleados[i].nombre);
+            printf("Documento: %s %d\n", empleados[i].tipoDocumento, empleados[i].numeroDocumento);
+            printf("Dirección: %s\n", empleados[i].direccion);
+            printf("Fecha de nacimiento: %02d/%02d/%d\n", empleados[i].fechaNacimiento.dia, empleados[i].fechaNacimiento.mes, empleados[i].fechaNacimiento.anio);
+            printf("Estado civil: %s\n", empleados[i].estadoCivil);
+            printf("Hijos: %d\n", empleados[i].hijos);
+            printf("Sexo: %c\n", empleados[i].sexo);
+            return;
+        }
+    }
+    printf("Empleado no encontrado.\n");
+}
+
+// Función del menú
