@@ -83,6 +83,7 @@ void mostrarDatos(RegistroSalud persona) {
 
 int main() {
     RegistroSalud pacientes[MAX_PACIENTES];
+    int canPacientes;
     int numPacientes = 0;
     int opcion;
 
@@ -97,11 +98,30 @@ int main() {
         system("cls");
         switch (opcion) {
             case 1:
-                if (numPacientes < MAX_PACIENTES) {
-                    ingresarDatos(&pacientes[numPacientes]);
-                    numPacientes++;
-                } else {
-                    printf("Limite de pacientes alcanzado.\n");
+                printf("\n----- Menu de Salud -----\n");
+                printf("(1)-cargar varios pacientes\n");
+                printf("(2)-cargar un solo paciente\n");
+                scanf("%d", &opcion);
+                if (opcion == 1){
+                    printf("Ingrese la cantidad de pacientes que deasea cargar\n");
+                    scanf("%d", &canPacientes);
+                    for (canPacientes;canPacientes > 0;canPacientes--){
+                        if (numPacientes < MAX_PACIENTES) {
+                            ingresarDatos(&pacientes[numPacientes]);
+                            numPacientes++;
+                        }else {
+                        printf("Limite de pacientes alcanzado.\n");
+                        }
+                        }
+                }else if (opcion == 2){
+                    if (numPacientes < MAX_PACIENTES) {
+                        ingresarDatos(&pacientes[numPacientes]);
+                        numPacientes++;
+                    }else {
+                        printf("Limite de pacientes alcanzado.\n");
+                    }
+                }else{
+                 printf("Opcion no válida. Intente nuevamente.\n");
                 }
                 break;
             case 2: {
