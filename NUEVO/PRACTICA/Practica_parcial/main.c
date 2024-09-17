@@ -7,16 +7,16 @@
 typedef struct{
 int dia;
 int mes;
-int ani;
+int anio;
 }Fecha;
 
 typedef struct{
 char localidad[20];
-char codigo;
+char codigo[10];
 Fecha Fecha_R;
 float temp_max;
 float temp_min;
-}Temperatura
+}Temperatura;
 
 /*FIN De Estructura*/
 //22/03/24
@@ -27,11 +27,11 @@ void cargar_n_temperatura(Temperatura *registro){
     printf("Ingrese el codigo postal de la localidad(ej:B7107)\n");
     scanf(" %s", registro->codigo);
     printf("Ingrese la fecha del informe(dd/mm/aa)\n");
-    scanf("%d" "%d" "%d", &registro->Fecha_R.dia, &registro->Fecha_R.mes, &registro->Fecha_R.anio);
+    scanf(" %d" " %d" " %d", registro->Fecha_R.dia, registro->Fecha_R.mes, registro->Fecha_R.anio);
     printf("Ingrese la temperatura maxima registrada\n");
-    scanf("%d", registro->);
+    scanf("%d", registro-> temp_max);
     printf("Ingrese la temperatura minima registrada\n");
-    scanf("%d", registro->);
+    scanf("%d", registro-> temp_min);
 }
 
 void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
@@ -55,7 +55,7 @@ void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
         printf("No se encontraron registros para la localidad %s en la fecha 22/03/24.\n", localidad);
     }
 }
-void temp_MAX(Temperatura *registro,int cantidad,float t_MAX){
+int temp_MAX(Temperatura *registro,int cantidad,float t_MAX){
 
     if (cantidad == 0){
 
@@ -63,9 +63,9 @@ void temp_MAX(Temperatura *registro,int cantidad,float t_MAX){
     int contador = 0;
 
     if (registro->temp_max> t_MAX){
-        contador = 1
+        contador = 1;
     }
-    return contador + temp_MAX(registro + 1,cantidad-1,t_MAX)
+    return contador + temp_MAX(registro + 1,cantidad-1,t_MAX);
 }
 /*fin funciones*/
 
@@ -78,6 +78,7 @@ int main(){
     int local;
     float temp_max;
 
+    do{
     printf("1-Carga de Temperatura.\n");
     printf("2-Muestra la temperatura promedio de la fecha(22/03/24).\n");
     printf("3-Muestre la temperatura maxima registrada.\n");
@@ -85,16 +86,16 @@ int main(){
     scanf("%d", &opcion);
 
     switch(opcion){
-case 1:
+    case 1:
         printf("(1)-Registrar varias Temperatura\n");
         printf("(2)-Registrar una sola Temperatura\n");
         scanf("%d", &opcion);
         if(opcion == 1){
             printf("Ingrese cantidad de registras a cargar\n");
             scanf("%d", &repetir);
-            for(repetir = 0;repetir < 0;repetir--){
+            for(repetir;repetir > 0;repetir--){
                 if (cantidadtotal < 8200){
-                    cargar_n_temperatura(&registro_t[cantidadtotal];)
+                    cargar_n_temperatura(&registro_t[cantidadtotal]);
                     cantidadtotal++;
                 }else{
                     printf("Maximo alcanzado de registro\n");
@@ -102,7 +103,7 @@ case 1:
             }
         }else if(opcion == 2){
             if (cantidadtotal < 8200){
-                cargar_n_temperatura(&registro_t[cantidadtotal];)
+                cargar_n_temperatura(&registro_t[cantidadtotal]);
                 cantidadtotal++;
             }else{
                 printf("Maximo alcanzado de registro\n");
@@ -122,17 +123,18 @@ case 1:
 
     break;
     case 3:
-        printf("Ingrese la temperatura maximaa a buscar\n");
+        printf("Ingrese la temperatura maxima a buscar\n");
         scanf("%f", &temp_max);
         int resul = temp_MAX(registro_t,cantidadtotal,temp_max);
 
     break;
     case 0:
-        printf("Saliendo..");
+        printf("Saliendo..\n");
         temp_prom(registro_t, cantidadtotal, local);
         printf("El resultado final del contador: %d",temp_MAX);
 
     break;
     default: printf("Opcion Invalida");
     }
+}while(opcion = 0);
 }
