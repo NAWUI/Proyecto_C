@@ -1,6 +1,5 @@
 # depslib dependency file v1.0
-1726609941 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp6\activida1_tp6\main.c
+1726780427 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp6\activida1_tp6\main.c
 	<stdio.h>
 	<stdlib.h>
-	<malloc.h>
 

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1726784745 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp6\actividad5_tp6\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+

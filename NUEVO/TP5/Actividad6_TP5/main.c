@@ -8,7 +8,7 @@ void imprimirInverso(char arr[], int n) {
 
 int main() {
     char arr[] = "recursivo";
-    int n = 9; // Longitud de la cadena
+    int n = 9; 
     imprimirInverso(arr, n);
     return 0;
 }
