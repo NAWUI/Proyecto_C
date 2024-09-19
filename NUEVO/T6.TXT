@@ -1,0 +1,362 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // a. Puntero a un entero
+    int *pInt = (int*) malloc(sizeof(int));
+    *pInt = 10;
+    printf("Entero: valor = %d, direccion = %p, tamaño = %zu bytes\n", *pInt, (void*)pInt, sizeof(int));
+
+    // b. Puntero a un char
+    char *pChar = (char*) malloc(sizeof(char));
+    *pChar = 'A';
+    printf("Char: valor = %c, direccion = %p, tamaño = %zu bytes\n", *pChar, (void*)pChar, sizeof(char));
+
+    // c. Puntero a un float
+    float *pFloat = (float*) malloc(sizeof(float));
+    *pFloat = 3.14;
+    printf("Float: valor = %f, direccion = %p, tamaño = %zu bytes\n", *pFloat, (void*)pFloat, sizeof(float));
+
+    // d. Puntero a n enteros
+    int n;
+    printf("Ingrese cantidad de enteros: ");
+    scanf("%d", &n);
+    int *pArray = (int*) malloc(n * sizeof(int));
+
+    for (int i = 0; i < n; i++) {
+        pArray[i] = i + 1;
+        printf("Entero %d: valor = %d, direccion = %p\n", i + 1, pArray[i], (void*)&pArray[i]);
+    }
+
+    // Liberar memoria
+    free(pInt);
+    free(pChar);
+    free(pFloat);
+    free(pArray);
+
+    return 0;
+}
+-----------------------
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int n;
+    printf("Ingrese la cantidad de enteros: ");
+    scanf("%d", &n);
+
+    int *arr = (int*) malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("No se pudo asignar memoria.\n");
+        return 1;
+    }
+
+    // Inicializar y mostrar los valores
+    for (int i = 0; i < n; i++) {
+        arr[i] = i + 1;
+        printf("Valor %d: %d\n", i + 1, arr[i]);
+    }
+
+    free(arr);  // Liberar la memoria
+    return 0;
+}
+-------------
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct {
+    char a;
+    int b;
+} Info;
+
+int main() {
+    // a. Solicitar memoria para una estructura Info
+    Info *info = (Info*) malloc(sizeof(Info));
+    if (info == NULL) {
+        printf("No se pudo asignar memoria.\n");
+        return 1;
+    }
+
+    // b. Asignar valores
+    info->a = 'X';
+    info->b = 100;
+
+    // c. Mostrar valores
+    printf("Estructura Info: a = %c, b = %d\n", info->a, info->b);
+
+    free(info);  // Liberar memoria
+    return 0;
+}
+--------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char nomb[20];
+    char ape[20];
+    int edad;
+} persona;
+
+// Función para cargar una estructura
+void cargar_persona(persona *p) {
+    printf("Ingrese nombre: ");
+    scanf("%s", p->nomb);
+    printf("Ingrese apellido: ");
+    scanf("%s", p->ape);
+    printf("Ingrese edad: ");
+    scanf("%d", &p->edad);
+}
+
+// Función para mostrar los datos de una estructura
+void mostrar_persona(const persona *p) {
+    printf("Nombre: %s, Apellido: %s, Edad: %d\n", p->nomb, p->ape, p->edad);
+}
+
+int main() {
+    int n;
+    printf("Ingrese cantidad de personas (máximo 10): ");
+    scanf("%d", &n);
+    
+    if (n > 10) {
+        printf("Cantidad excede el máximo permitido.\n");
+        return 1;
+    }
+
+    // a. Solicitar memoria para n personas
+    persona *personas = (persona*) malloc(n * sizeof(persona));
+    if (personas == NULL) {
+        printf("No se pudo asignar memoria.\n");
+        return 1;
+    }
+
+    // d. Cargar n estructuras
+    for (int i = 0; i < n; i++) {
+        printf("\nPersona %d:\n", i + 1);
+        cargar_persona(&personas[i]);
+    }
+
+    // c. Mostrar los datos
+    printf("\nDatos de las personas ingresadas:\n");
+    for (int i = 0; i < n; i++) {
+        mostrar_persona(&personas[i]);
+    }
+
+    free(personas);  // Liberar memoria
+    return 0;
+}
+------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    char nomb[20];
+    char ape[20];
+    int edad;
+} salud;
+
+// Función para cargar los datos
+void cargar_salud(salud *p) {
+    printf("Ingrese nombre: ");
+    scanf("%s", p->nomb);
+    printf("Ingrese apellido: ");
+    scanf("%s", p->ape);
+    printf("Ingrese edad: ");
+    scanf("%d", &p->edad);
+}
+
+// Función para mostrar los datos
+void mostrar_salud(const salud *p) {
+    printf("Nombre: %s, Apellido: %s, Edad: %d\n", p->nomb, p->ape, p->edad);
+}
+
+int main() {
+    // a. Pida memoria para almacenar una estructura
+    salud *pSalud = (salud*) malloc(sizeof(salud));
+    if (pSalud == NULL) {
+        printf("No se pudo asignar memoria.\n");
+        return 1;
+    }
+
+    // b. Almacene los datos
+    cargar_salud(pSalud);
+
+    // c. Mostrar los datos
+    mostrar_salud(pSalud);
+
+    // d. Solicitar memoria para 50,000 estructuras
+    salud *pSaludArray = (salud*) malloc(50000 * sizeof(salud));
+    if (pSaludArray == NULL) {
+        printf("No se pudo asignar memoria para 50,000 estructuras.\n");
+        free(pSalud);
+        return 1;
+    }
+
+    // e. Cargar n estructuras
+    int n;
+    printf("Ingrese cantidad de estructuras a cargar (máximo 50,000): ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("\nSalud %d:\n", i + 1);
+        cargar_salud(&pSaludArray[i]);
+    }
+
+    // Mostrar los datos cargados
+    printf("\nDatos cargados:\n");
+    for (int i = 0; i < n; i++) {
+        mostrar_salud(&pSaludArray[i]);
+    }
+
+    // Liberar memoria
+    free(pSalud);
+    free(pSaludArray);
+
+    return 0;
+}
+-----------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+    int dia, mes, año;
+} Fecha;
+
+typedef struct {
+    char nom[30];
+    int TipoDoc;  // 1=DNI, 2=PAS, 3=CF, 4=CIPE
+    int NroDoc[8];
+    int Hijos;
+    Fecha Nacim;
+} Empleado;
+
+----------
+Empleado *arr[10];  // Arreglo de punteros a Empleado
+---------
+void ingresar_empleados(Empleado *arr[], int *cantidad) {
+    printf("Ingrese la cantidad de empleados (máximo 10): ");
+    scanf("%d", cantidad);
+
+    if (*cantidad > 10) {
+        printf("La cantidad no puede ser mayor a 10.\n");
+        *cantidad = 10;
+    }
+
+    for (int i = 0; i < *cantidad; i++) {
+        arr[i] = (Empleado*)malloc(sizeof(Empleado));
+
+        if (arr[i] == NULL) {
+            printf("Error al asignar memoria.\n");
+            exit(1);
+        }
+
+        printf("\nEmpleado %d:\n", i + 1);
+        printf("Nombre: ");
+        scanf("%s", arr[i]->nom);
+
+        printf("Tipo de Documento (1=DNI, 2=PAS, 3=CF, 4=CIPE): ");
+        scanf("%d", &arr[i]->TipoDoc);
+
+        printf("Número de Documento (8 dígitos): ");
+        for (int j = 0; j < 8; j++) {
+            scanf("%d", &arr[i]->NroDoc[j]);
+        }
+
+        printf("Cantidad de hijos: ");
+        scanf("%d", &arr[i]->Hijos);
+
+        printf("Fecha de Nacimiento (Día Mes Año): ");
+        scanf("%d %d %d", &arr[i]->Nacim.dia, &arr[i]->Nacim.mes, &arr[i]->Nacim.año);
+    }
+}
+----------
+void mostrar_empleados(Empleado *arr[], int cantidad) {
+    for (int i = 0; i < cantidad; i++) {
+        printf("\nEmpleado %d:\n", i + 1);
+        printf("Nombre: %s\n", arr[i]->nom);
+        printf("Tipo de Documento: %d\n", arr[i]->TipoDoc);
+        printf("Número de Documento: ");
+        for (int j = 0; j < 8; j++) {
+            printf("%d", arr[i]->NroDoc[j]);
+        }
+        printf("\nCantidad de hijos: %d\n", arr[i]->Hijos);
+        printf("Fecha de Nacimiento: %d/%d/%d\n", arr[i]->Nacim.dia, arr[i]->Nacim.mes, arr[i]->Nacim.año);
+    }
+}
+------
+void listar_mayores_de_40(Empleado *arr[], int cantidad) {
+    printf("\nEmpleados mayores de 40 años:\n");
+    int año_actual = 2024;
+
+    for (int i = 0; i < cantidad; i++) {
+        int edad = año_actual - arr[i]->Nacim.año;
+
+        if (edad > 40) {
+            printf("%s\n", arr[i]->nom);
+        }
+    }
+}
+------
+int contar_sin_hijos(Empleado *arr[], int cantidad) {
+    int sin_hijos = 0;
+
+    for (int i = 0; i < cantidad; i++) {
+        if (arr[i]->Hijos == 0) {
+            sin_hijos++;
+        }
+    }
+
+    return sin_hijos;
+}
+-------------
+int main() {
+    int opcion;
+    int cantidad = 0;
+    Empleado *arr[10];  // Arreglo de punteros a Empleado
+
+    do {
+        printf("\nMenú de opciones:\n");
+        printf("1. Ingresar empleados\n");
+        printf("2. Mostrar empleados\n");
+        printf("3. Listar empleados mayores de 40 años\n");
+        printf("4. Contar empleados sin hijos\n");
+        printf("5. Salir\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1:
+                ingresar_empleados(arr, &cantidad);
+                break;
+
+            case 2:
+                mostrar_empleados(arr, cantidad);
+                break;
+
+            case 3:
+                listar_mayores_de_40(arr, cantidad);
+                break;
+
+            case 4:
+                printf("Cantidad de empleados sin hijos: %d\n", contar_sin_hijos(arr, cantidad));
+                break;
+
+            case 5:
+                printf("Saliendo...\n");
+                break;
+
+            default:
+                printf("Opción no válida.\n");
+        }
+
+    } while (opcion != 5);
+
+    // Liberar memoria asignada
+    for (int i = 0; i < cantidad; i++) {
+        free(arr[i]);
+    }
+
+    return 0;
+}
