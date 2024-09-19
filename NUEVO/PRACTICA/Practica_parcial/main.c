@@ -27,7 +27,7 @@ void cargar_n_temperatura(Temperatura *registro){
     printf("Ingrese el codigo postal de la localidad(ej:B7107)\n");
     scanf(" %s", registro->codigo);
     printf("Ingrese la fecha del informe(dd/mm/aa)\n");
-    scanf(" %d" " %d" " %d", registro->Fecha_R.dia, registro->Fecha_R.mes, registro->Fecha_R.anio);
+    scanf("%d" "%d" "%d",registro->Fecha_R.dia,registro->Fecha_R.mes,registro->Fecha_R.anio);
     printf("Ingrese la temperatura maxima registrada\n");
     scanf("%d", registro-> temp_max);
     printf("Ingrese la temperatura minima registrada\n");
