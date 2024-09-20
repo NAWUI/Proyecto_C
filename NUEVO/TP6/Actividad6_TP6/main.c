@@ -102,7 +102,7 @@ int main() {
     Empleado *arr[10];  // Arreglo de punteros a Empleado
 
     do {
-        printf("\nMenú de opciones:\n");
+        printf("\nMenu de opciones:\n");
         printf("1. Ingresar empleados\n");
         printf("2. Mostrar empleados\n");
         printf("3. Listar empleados mayores de 40 anios\n");
@@ -133,7 +133,7 @@ int main() {
                 break;
 
             default:
-                printf("Opción no válida.\n");
+                printf("Opcion no valida.\n");
         }
 
     } while (opcion != 5);
