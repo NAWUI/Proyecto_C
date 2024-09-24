@@ -1,0 +1,224 @@
+A- TDAauto.h
+// TDAauto.h
+#ifndef TDAAUTO_H
+#define TDAAUTO_H
+
+typedef struct {
+    char marca[50];
+    char modelo[50];
+    int anio;
+    char titular[100];
+} Auto;
+
+void crearAuto(Auto *a, const char *marca, const char *modelo, int anio, const char *titular);
+void modificarTitular(Auto *a, const char *nuevoTitular);
+void mostrarAuto(const Auto *a);
+
+#endif
+
+-------------
+b- usoauto.c
+#include <stdio.h>
+#include <string.h>
+#include "TDAauto.h"
+
+void crearAuto(Auto *a, const char *marca, const char *modelo, int anio, const char *titular) {
+    strcpy(a->marca, marca);
+    strcpy(a->modelo, modelo);
+    a->anio = anio;
+    strcpy(a->titular, titular);
+}
+
+void modificarTitular(Auto *a, const char *nuevoTitular) {
+    strcpy(a->titular, nuevoTitular);
+}
+
+void mostrarAuto(const Auto *a) {
+    printf("Marca: %s\n", a->marca);
+    printf("Modelo: %s\n", a->modelo);
+    printf("Año: %d\n", a->anio);
+    printf("Titular: %s\n", a->titular);
+}
+
+int main() {
+    Auto miAuto;
+    crearAuto(&miAuto, "Toyota", "Corolla", 2020, "Juan Perez");
+
+    printf("Datos del auto:\n");
+    mostrarAuto(&miAuto);
+
+    modificarTitular(&miAuto, "Maria Lopez");
+    printf("\nDatos del auto luego de modificar el titular:\n");
+    mostrarAuto(&miAuto);
+
+    return 0;
+}
+
+------------------
+TDAfraccion.h
+// TDAfraccion.h
+#ifndef TDAFRACCION_H
+#define TDAFRACCION_H
+
+typedef struct {
+    int numerador;
+    int denominador;
+} Fraccion;
+
+Fraccion crearFraccion(int numerador, int denominador);
+Fraccion sumarFraccion(Fraccion f1, Fraccion f2);
+Fraccion restarFraccion(Fraccion f1, Fraccion f2);
+Fraccion multiplicarFraccion(Fraccion f1, Fraccion f2);
+Fraccion dividirFraccion(Fraccion f1, Fraccion f2);
+float valorReal(Fraccion f);
+void mostrarFraccion(Fraccion f);
+
+#endif
+
+-----
+B - usofraccion.c 
+#include <stdio.h>
+#include "TDAfraccion.h"
+
+Fraccion crearFraccion(int numerador, int denominador) {
+    Fraccion f;
+    f.numerador = numerador;
+    f.denominador = denominador;
+    return f;
+}
+
+Fraccion sumarFraccion(Fraccion f1, Fraccion f2) {
+    Fraccion resultado;
+    resultado.numerador = f1.numerador * f2.denominador + f2.numerador * f1.denominador;
+    resultado.denominador = f1.denominador * f2.denominador;
+    return resultado;
+}
+
+void mostrarFraccion(Fraccion f) {
+    printf("%d/%d\n", f.numerador, f.denominador);
+}
+
+int main() {
+    Fraccion f1 = crearFraccion(1, 2);
+    Fraccion f2 = crearFraccion(3, 4);
+
+    Fraccion suma = sumarFraccion(f1, f2);
+
+    printf("Suma de fracciones: ");
+    mostrarFraccion(suma);
+
+    return 0;
+}
+
+-----
+TDApersona.h
+// TDApersona.h
+#ifndef TDAPERSONA_H
+#define TDAPERSONA_H
+
+typedef struct {
+    char nombre[50];
+    char apellido[50];
+    int dni;
+    char mail[100];
+} Persona;
+
+void crearPersona(Persona *p, const char *nombre, const char *apellido, int dni, const char *mail);
+void modificarNombre(Persona *p, const char *nuevoNombre);
+void mostrarPersona(const Persona *p);
+
+#endif
+-------
+usopersona.c
+#include <stdio.h>
+#include <string.h>
+#include "TDApersona.h"
+
+void crearPersona(Persona *p, const char *nombre, const char *apellido, int dni, const char *mail) {
+    strcpy(p->nombre, nombre);
+    strcpy(p->apellido, apellido);
+    p->dni = dni;
+    strcpy(p->mail, mail);
+}
+
+void mostrarPersona(const Persona *p) {
+    printf("Nombre: %s\nApellido: %s\nDNI: %d\nEmail: %s\n", p->nombre, p->apellido, p->dni, p->mail);
+}
+
+int main() {
+    Persona persona;
+    crearPersona(&persona, "Juan", "Perez", 12345678, "juan@mail.com");
+    mostrarPersona(&persona);
+
+    return 0;
+}
+----
+TDApila.h
+// TDApila.h
+#ifndef TDAPILA_H
+#define TDAPILA_H
+
+#define MAX 100
+
+typedef struct {
+    int datos[MAX];
+    int tope;
+} Pila;
+
+void inicializarPila(Pila *p);
+int esPilaVacia(Pila *p);
+int esPilaLlena(Pila *p);
+void apilar(Pila *p, int valor);
+int desapilar(Pila *p);
+
+#endif
+----------------
+Para crear los archivos de código en C usando Code::Blocks, sigue estos pasos:
+
+### 1. Crear un nuevo proyecto en Code::Blocks
+
+1. Abre **Code::Blocks**.
+2. Ve a **File > New > Project**.
+3. Selecciona **Console Application** y elige **C** como lenguaje.
+4. Dale un nombre a tu proyecto y elige una carpeta donde guardarlo.
+5. Code::Blocks generará un archivo principal (`main.c`) y configurará tu proyecto.
+
+### 2. Crear archivos `.h` y `.c`
+
+En este caso, los archivos `.h` son para las definiciones de los TDA (como las estructuras y prototipos de funciones), mientras que los archivos `.c` contienen la implementación y el uso de esos TDA.
+
+#### Para crear un archivo `.h` (ejemplo: `TDAauto.h`):
+1. Haz clic derecho en la carpeta del proyecto en el panel izquierdo (en **Sources** o **Headers**) y selecciona **New File**.
+2. Selecciona **Empty file** y dale el nombre `TDAauto.h`.
+3. Copia y pega el contenido del archivo `TDAauto.h` que te proporcioné en el editor.
+4. Guarda el archivo (Ctrl + S).
+
+#### Para crear un archivo `.c` (ejemplo: `usoauto.c`):
+1. Igual que antes, haz clic derecho en la carpeta del proyecto, selecciona **New File**.
+2. Selecciona **Empty file** y llámalo `usoauto.c`.
+3. Copia el código de `usoauto.c` en el editor.
+4. Guarda el archivo.
+
+### 3. Incluir archivos `.h` en los archivos `.c`
+En cada archivo `.c` que implemente o use los TDA, debes incluir el archivo de cabecera correspondiente. Por ejemplo, en `usoauto.c`, debes asegurarte de tener la línea:
+```c
+#include "TDAauto.h"
+```
+Esto le indica al compilador que utilice las definiciones y prototipos del archivo `.h`.
+
+### 4. Compilar el proyecto
+Cuando tengas todos los archivos creados, sigue estos pasos:
+
+1. En la barra superior, selecciona **Build > Build** o simplemente presiona **F9**. Esto compilará el proyecto.
+2. Si no hay errores, selecciona **Run** para ejecutar el programa.
+
+### 5. Agregar más archivos al proyecto
+Si necesitas agregar más archivos `.h` o `.c` (por ejemplo, para los otros TDA como `TDAfraccion.h` y `usofraccion.c`), simplemente repite el proceso de crear nuevos archivos y añadir el código correspondiente.
+
+### Ejemplo completo para Auto:
+- **TDAauto.h** (archivo de cabecera donde defines el TDA y las funciones).
+- **usoauto.c** (archivo que implementa y utiliza el TDA).
+
+Cada vez que crees un TDA nuevo, deberás seguir el mismo proceso: un archivo `.h` para definir el TDA y otro `.c` para usarlo o implementarlo.
+
+Si tienes alguna duda o error, ¡avísame!
