@@ -39,7 +39,7 @@ void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
     int i;
     float suma_temp_max = 0;
 
-    // Fecha específica 22/03/24
+    // Fecha especï¿½fica 22/03/24
     for (i = 0; i < cantidad; i++) {
         if (registro_t[i].Fecha_R.dia == 22 && registro_t[i].Fecha_R.mes == 3 && registro_t[i].Fecha_R.anio == 2024) {
             if (strcmp(registro_t[i].localidad, localidad) == 0) {
@@ -55,17 +55,15 @@ void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
         printf("No se encontraron registros para la localidad %s en la fecha 22/03/24.\n", localidad);
     }
 }
-int temp_MAX(Temperatura *registro,int cantidad,float t_MAX){
+int temp_MAX(Temperatura registro,int cantidad,float t_MAX, int cont){
 
     if (cantidad == 0){
-
+        return cont;
     }
-    int contador = 0;
-
-    if (registro->temp_max> t_MAX){
-        contador = 1;
+    if (registro.temp_max> t_MAX){
+            cont++;  
     }
-    return contador + temp_MAX(registro + 1,cantidad-1,t_MAX);
+    temp_MAX(registro,cantidad-1,t_MAX, cont);
 }
 /*fin funciones*/
 
@@ -77,6 +75,7 @@ int main(){
     int n;
     int local;
     float temp_max;
+    int contador = 0;
 
     do{
     printf("1-Carga de Temperatura.\n");
