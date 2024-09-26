@@ -55,17 +55,20 @@ void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
         printf("No se encontraron registros para la localidad %s en la fecha 22/03/24.\n", localidad);
     }
 }
-int temp_MAX(Temperatura *registro,int cantidad,float t_MAX){
+int temp_MAX(Temperatura *registro,int cantidad,float t_MAX, int cont){
 
     if (cantidad == 0){
-
+        return cont;
     }
-    int contador = 0;
 
-    if (registro->temp_max> t_MAX){
-        contador = 1;
+
+    else {
+            if (registro->temp_max> t_MAX){
+                    cont++;
     }
-    return contador + temp_MAX(registro + 1,cantidad-1,t_MAX);
+        temp_MAX(registro,cantidad-1,t_MAX,cantidad);
+    }
+
 }
 /*fin funciones*/
 
@@ -75,7 +78,8 @@ int main(){
     int repetir;
     int opcion;
     int n;
-    int local;
+    int local
+    int contador = 0;
     float temp_max;
 
     do{
