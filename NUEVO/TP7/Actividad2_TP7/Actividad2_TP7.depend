@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1727392384 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad2_tp7\main.c
+	<stdio.h>
+	"TDAfraccion.h"
+
+1727392419 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad2_tp7\tdafraccion.h
+	<stdio.h>
+
