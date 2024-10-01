@@ -21,9 +21,9 @@ typedef struct {
 
 void ingresarDatos(RegistroSalud *persona) {
     printf("Ingrese el primer nombre: ");
-    scanf("%s", persona->nombre);
+    scanf(" %s", persona->nombre);
     printf("Ingrese el apellido: ");
-    scanf("%s", persona->apellido);
+    scanf(" %s", persona->apellido);
     printf("Ingrese el sexo (M/F): ");
     scanf(" %c", &persona->sexo);
     printf("Ingrese la fecha de nacimiento (dd mm aaaa): ");
