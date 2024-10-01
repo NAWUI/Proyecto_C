@@ -3,27 +3,24 @@
 
 int main() {
     int n;
-    printf("Ingrese la cantidad de fracciones a sumar: ");
+    printf("Ingrese la cantidad de fracciones: ");
     scanf("%d", &n);
 
     Fraccion fracciones[n];
-    int numerador, denominador;
-
     for (int i = 0; i < n; i++) {
-        printf("Ingrese el numerador de la fracción %d: ", i + 1);
-        scanf("%d", &numerador);
-        printf("Ingrese el denominador de la fracción %d: ", i + 1);
-        scanf("%d", &denominador);
-        fracciones[i] = Set_crear_fraccion(numerador, denominador);
+        int numerador, denominador;
+        printf("Ingrese numerador y denominador de la fracción %d (separados por espacio): ", i + 1);
+        scanf("%d %d", &numerador, &denominador);
+        fracciones[i] = init_fraccion(numerador, denominador);
     }
 
-    Fraccion suma = fracciones[0];
-    for (int i = 1; i < n; i++) {
-        suma = Get_sumar_fracciones(suma, fracciones[i]);
+    Fraccion suma_total = init_fraccion(0, 1);
+    for (int i = 0; i < n; i++) {
+        suma_total = sumar(suma_total, fracciones[i]);
     }
 
-    printf("La suma de las fracciones es: ");
-    imprimir_fraccion(suma);
+    printf("La suma de todas las fracciones es: %d/%d\n", get_numerador(suma_total), get_denominador(suma_total));
+    printf("Valor real de la suma: %f\n", get_valor_real(suma_total));
 
     return 0;
 }
