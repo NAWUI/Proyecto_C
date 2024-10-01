@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
+
 /*Definicion de struct*/
 
 typedef struct{
@@ -20,42 +21,40 @@ float temp_min;
 /*FIN De Estructura*/
 //22/03/24
 /*Funciones*/
-
-void cargar_n_temperatura(Temperatura *registro) {
+void cargar_n_temperatura(Temperatura *registro){
     printf("Ingrese el Nombre de la localidad\n");
-    scanf(" %s", registro->localidad);  // El espacio extra garantiza que se ignoren los espacios en blanco.
-
-    printf("Ingrese el codigo postal de la localidad (ej:B7107)\n");
+    scanf(" %s", registro->localidad);
+    printf("Ingrese el codigo postal de la localidad(ej:B7107)\n");
     scanf(" %s", registro->codigo);
-
-    printf("Ingrese la fecha del informe (dd mm aa)\n");
-    scanf("%d %d %d", &registro->Fecha_R.dia, &registro->Fecha_R.mes, &registro->Fecha_R.anio);
-
+    printf("Ingrese la fecha del informe(dd/mm/aa)\n");
+    scanf("%d" "%d" "%d",registro->Fecha_R.dia,registro->Fecha_R.mes,registro->Fecha_R.anio);
     printf("Ingrese la temperatura maxima registrada\n");
-    scanf("%f", &registro->temp_max);  // No es necesario el getchar() aquí.
-
+    scanf("%d", registro-> temp_max);
     printf("Ingrese la temperatura minima registrada\n");
-    scanf("%f", &registro->temp_min);
+    scanf("%d", registro-> temp_min);
 }
 
-
-float temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
+void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
     int total_registros = 0;
     int i;
     float suma_temp_max = 0;
 
+    // Fecha especï¿½fica 22/03/24
     for (i = 0; i < cantidad; i++) {
-        if (registro_t[i].Fecha_R.dia == 22 && registro_t[i].Fecha_R.mes == 03 && registro_t[i].Fecha_R.anio == 24) {
+        if (registro_t[i].Fecha_R.dia == 22 && registro_t[i].Fecha_R.mes == 3 && registro_t[i].Fecha_R.anio == 2024) {
             if (strcmp(registro_t[i].localidad, localidad) == 0) {
                 suma_temp_max += registro_t[i].temp_max;
                 total_registros++;
             }
         }
     }
-    return suma_temp_max / total_registros;
 
+    if (total_registros > 0) {
+        printf("Promedio de la temperatura maxima para %s el 22/03/24: %.2f\n", localidad, suma_temp_max / total_registros);
+    } else {
+        printf("No se encontraron registros para la localidad %s en la fecha 22/03/24.\n", localidad);
+    }
 }
-/*
 int temp_MAX(Temperatura registro[],int cantidad,float t_MAX, int cont){
 
     if (cantidad == 0){
@@ -65,26 +64,11 @@ int temp_MAX(Temperatura registro[],int cantidad,float t_MAX, int cont){
             if (registro[cantidad].temp_max> t_MAX){
                     cont++;
     }
-
-    }
-    return temp_MAX(registro,cantidad-1,t_MAX,cont);
-}*/
-// Sin acumulador
-
-int temp_MAX(Temperatura registro[], int cantidad, float t_MAX) {
-    // Caso base: si ya no hay más elementos que verificar, devolvemos 0
-    if (cantidad == 0) {
-        return 0;
+        temp_MAX(registro,cantidad-1,t_MAX,cont);
     }
 
-    // Verificamos si la temperatura máxima en este registro es mayor que t_MAX
-    if (registro[cantidad - 1].temp_max > t_MAX) {
-        return 1 + temp_MAX(registro, cantidad - 1, t_MAX);
-    } else {
-        return temp_MAX(registro, cantidad - 1, t_MAX);
-    }
+    //temp_MAX(registro,cantidad-1,t_MAX, cont);
 }
-
 /*fin funciones*/
 
 int main(){
@@ -92,7 +76,8 @@ int main(){
     int cantidadtotal = 0;
     int repetir;
     int opcion;
-    char local[20];
+    int n;
+    char local [20];
     int contador = 0;
     float temp_max;
 
@@ -111,8 +96,7 @@ int main(){
         if(opcion == 1){
             printf("Ingrese cantidad de registras a cargar\n");
             scanf("%d", &repetir);
-            getchar();
-            for(;repetir > 0;repetir--){
+            for(repetir;repetir > 0;repetir--){
                 if (cantidadtotal < 8200){
                     cargar_n_temperatura(&registro_t[cantidadtotal]);
                     cantidadtotal++;
@@ -135,10 +119,7 @@ int main(){
         if (cantidadtotal > 0) {
             printf("Ingrese el nombre de la localidad para calcular el promedio de la fecha 22/03/24:\n");
             scanf("%s", local);
-            float result2 = temp_prom(registro_t, cantidadtotal, local);
-
-                printf("Promedio de la temperatura maxima para %s el 22/03/24: %.2f\n", local, result2);
-
+            temp_prom(registro_t, cantidadtotal, local);
         } else {
             printf("No hay registros cargados.\n");
         }
@@ -147,16 +128,16 @@ int main(){
     case 3:
         printf("Ingrese la temperatura maxima a buscar\n");
         scanf("%f", &temp_max);
-        int resul = temp_MAX(registro_t,cantidadtotal,temp_max);
+        int resul = temp_MAX(registro_t,cantidadtotal,temp_max,contador);
 
     break;
     case 0:
         printf("Saliendo..\n");
         temp_prom(registro_t, cantidadtotal, local);
-        printf("El resultado final del contador: %d",resul);
+        printf("El resultado final del contador: %d",temp_MAX);
 
     break;
     default: printf("Opcion Invalida");
     }
-}while(opcion != 0);
+}while(opcion = 0);
 }

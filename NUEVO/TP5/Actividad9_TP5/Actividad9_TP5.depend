@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1726446119 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp5\actividad9_tp5\main.c
+	<stdio.h>
+	<string.h>
+
