@@ -3,10 +3,8 @@
 #include "TDApersona.h"
 #define MAX_user 2
 
-int main()
-{
-    Persona infoP [MAX_user];
-
+int main() {
+    Persona infoP[MAX_user];
     char nombre[max_char];
     char apellido[max_char];
     int dni;
@@ -14,43 +12,63 @@ int main()
     int cantidad = 0;
     int opcion;
 
-    printf("---Menu Persona---\n");
-    printf("Ingresar Persona\n");
-    printf("Buscar persona\n");
-    printf("Modificar persona\n");
-    scanf("%d", &opcion);
+    do {
+        printf("\n--- Menu Persona ---\n");
+        printf("1. Ingresar Persona\n");
+        printf("2. Buscar Persona por DNI\n");
+        printf("3. Modificar Persona\n");
+        printf("4. Salir\n");
+        printf("Ingrese una opción: ");
+        scanf("%d", &opcion);
+        getchar();  // Limpiar buffer de entrada
 
-    switch(){
-    case 1:
+        switch(opcion) {
+            case 1:
+                if (cantidad < MAX_user) {
+                    printf("Ingrese nombre: ");
+                    gets(nombre);
+                    set_nombre(&infoP[cantidad], nombre);
 
-    }
+                    printf("Ingrese apellido: ");
+                    gets(apellido);
+                    set_apellido(&infoP[cantidad], apellido);
 
-    do{
-    printf("Ingrese nombre \n");
-    gets(nombre);
-    set_nombre(&infoP[cantidad],nombre);
+                    printf("Ingrese email: ");
+                    gets(email);
+                    set_email(&infoP[cantidad], email);
 
-    printf("Ingrese apellido\n");
-    gets(apellido);
-    set_apellido(&infoP[cantidad],apellido);
+                    printf("Ingrese dni: ");
+                    scanf("%d", &dni);
+                    set_dni(&infoP[cantidad], dni);
+                    getchar();  // Limpiar buffer
 
-    printf("Ingrese email \n");
-    gets(email);
-    set_email(&infoP[cantidad],email);
-
-
-    printf("Ingrese dni\n");
-    scanf("%d", &dni);
-    set_dni(&infoP[cantidad],dni);
-    getchar();
-
-    printf("%s\n",get_nombre(infoP[cantidad]));
-    printf("%s\n",get_apellido(infoP[cantidad]));
-    printf("%d\n",get_dni(infoP[cantidad]));
-    printf("%s\n",get_email(infoP[cantidad]));
-    cantidad++;
-
-    }while(cantidad != 2);
+                    cantidad++;
+                } else {
+                    printf("Se ha alcanzado el límite de usuarios.\n");
+                }
+                break;
+            case 2:
+                printf("Ingrese el DNI de la persona a buscar: ");
+                scanf("%d", &dni);
+                Persona *pEncontrada = buscar_persona_por_dni(infoP, cantidad, dni);
+                if (pEncontrada != NULL) {
+                    printf("Persona encontrada: %s %s, Email: %s, DNI: %d\n", 
+                           get_nombre(*pEncontrada), get_apellido(*pEncontrada), 
+                           get_email(*pEncontrada), get_dni(*pEncontrada));
+                } else {
+                    printf("Persona no encontrada.\n");
+                }
+                break;
+            case 3:
+                
+                break;
+            case 4:
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opción no válida.\n");
+        }
+    } while (opcion != 4);
 
     return 0;
 }
