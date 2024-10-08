@@ -18,9 +18,9 @@ int main() {
         printf("2. Buscar Persona por DNI\n");
         printf("3. Modificar Persona\n");
         printf("4. Salir\n");
-        printf("Ingrese una opción: ");
+        printf("Ingrese una opcion: ");
         scanf("%d", &opcion);
-        getchar();  // Limpiar buffer de entrada
+        getchar();
 
         switch(opcion) {
             case 1:
@@ -40,7 +40,7 @@ int main() {
                     printf("Ingrese dni: ");
                     scanf("%d", &dni);
                     set_dni(&infoP[cantidad], dni);
-                    getchar();  // Limpiar buffer
+                    getchar();
 
                     cantidad++;
                 } else {
@@ -52,15 +52,15 @@ int main() {
                 scanf("%d", &dni);
                 Persona *pEncontrada = buscar_persona_por_dni(infoP, cantidad, dni);
                 if (pEncontrada != NULL) {
-                    printf("Persona encontrada: %s %s, Email: %s, DNI: %d\n", 
-                           get_nombre(*pEncontrada), get_apellido(*pEncontrada), 
+                    printf("Persona encontrada: %s %s, Email: %s, DNI: %d\n",
+                           get_nombre(*pEncontrada), get_apellido(*pEncontrada),
                            get_email(*pEncontrada), get_dni(*pEncontrada));
                 } else {
                     printf("Persona no encontrada.\n");
                 }
                 break;
             case 3:
-                
+
                 break;
             case 4:
                 printf("Saliendo...\n");

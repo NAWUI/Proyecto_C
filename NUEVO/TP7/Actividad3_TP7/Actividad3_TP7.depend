@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1727821215 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad3_tp7\main.c
+1727994070 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad3_tp7\main.c
 	<stdio.h>
 	<stdlib.h>
 	"TDApersona.h"
 
-1727821270 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad3_tp7\tdapersona.h
+1727994565 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad3_tp7\tdapersona.h
 	<stdio.h>
 	<string.h>
 	<stdlib.h>

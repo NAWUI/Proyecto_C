@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1727393741 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\practica\practica_parcial\main.c
+1727991605 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\practica\practica_parcial\main.c
 	<stdio.h>
-	<string.h>
 	<stdlib.h>
+	<string.h>
 
 1727513421 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\practica_parcial\main.c
 	<stdio.h>

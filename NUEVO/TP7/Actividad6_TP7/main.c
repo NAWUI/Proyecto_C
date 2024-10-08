@@ -5,10 +5,12 @@
 
 int main() {
     int opcion;
-    Persona persona;
+    Persona personal;
     Pila pila_persona;
 
     init_pila(&pila_persona);
+    char nombre[max_char], apellido[max_char], email[max_char];
+    int dni;
 
     do {
         printf("\n--- Menú Pila de Personas ---\n");
@@ -16,35 +18,32 @@ int main() {
         printf("2. Desapilar Persona\n");
         printf("3. Ver Persona en tope\n");
         printf("4. Salir\n");
-        printf("Ingrese una opción: ");
+        printf("Ingrese una opcion: ");
         scanf("%d", &opcion);
-        getchar();  // Limpiar buffer de entrada
+        getchar();
 
         switch (opcion) {
             case 1:
-                if (!es_llena(pila_persona)) {
-                    // Ingresar datos de la persona
-                    char nombre[max_char], apellido[max_char], email[max_char];
-                    int dni;
+                if (!is_full(pila_persona)) {
 
                     printf("Ingrese nombre: ");
                     gets(nombre);
-                    set_nombre(&persona, nombre);
+                    set_nombre(&personal, nombre);
 
                     printf("Ingrese apellido: ");
                     gets(apellido);
-                    set_apellido(&persona, apellido);
+                    set_apellido(&personal, apellido);
 
                     printf("Ingrese DNI: ");
                     scanf("%d", &dni);
-                    set_dni(&persona, dni);
-                    getchar();  // Limpiar buffer de entrada
+                    set_dni(&personal, dni);
+                    getchar();
 
                     printf("Ingrese email: ");
                     gets(email);
-                    set_email(&persona, email);
+                    set_email(&personal, email);
 
-                    push(&pila_persona, persona);
+                    push(&pila_persona, personal);
                     printf("Persona apilada correctamente.\n");
                 } else {
                     printf("La pila está llena.\n");
@@ -52,20 +51,20 @@ int main() {
                 break;
 
             case 2:
-                if (!es_vacia(pila_persona)) {
-                    persona = pop(&pila_persona);
-                    printf("Persona desapilada: %s %s, DNI: %d\n", get_nombre(persona), get_apellido(persona), get_dni(persona));
+                if (!is_emptys(pila_persona)) {
+                    personal = pop(&pila_persona);
+                    printf("Persona desapilada: %s %s, DNI: %d\n", get_nombre(personal), get_apellido(personal), get_dni(personal));
                 } else {
-                    printf("La pila está vacía.\n");
+                    printf("La pila esta vacía.\n");
                 }
                 break;
 
             case 3:
-                if (!es_vacia(pila_persona)) {
-                    persona = peek(pila_persona);
-                    printf("Persona en el tope: %s %s, DNI: %d\n", get_nombre(persona), get_apellido(persona), get_dni(persona));
+                if (!is_emptys(pila_persona)) {
+                    personal = peek(pila_persona);
+                    printf("Persona en el tope: %s %s, DNI: %d\n", get_nombre(personal), get_apellido(personal), get_dni(personal));
                 } else {
-                    printf("La pila está vacía.\n");
+                    printf("La pila esta vacia.\n");
                 }
                 break;
 
@@ -74,7 +73,7 @@ int main() {
                 break;
 
             default:
-                printf("Opción no válida.\n");
+                printf("Opcion no valida.\n");
         }
     } while (opcion != 4);
 
