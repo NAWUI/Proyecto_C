@@ -1,5 +1,6 @@
 // main.c
 #include <stdio.h>
+#include <stdlib.h>
 #include "TDAauto.h"
 #include "TDAfila.h"
 
