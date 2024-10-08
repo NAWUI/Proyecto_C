@@ -9,12 +9,12 @@ int main() {
     init_pila(&pila);
 
     do {
-        printf("\n--- Menú Pila de Enteros ---\n");
+        printf("\n--- Menu Pila de Enteros ---\n");
         printf("1. Apilar (Push)\n");
         printf("2. Desapilar (Pop)\n");
         printf("3. Ver tope (Peek)\n");
         printf("4. Salir\n");
-        printf("Ingrese una opción: ");
+        printf("Ingrese una opcion: ");
         scanf("%d", &opcion);
 
         switch (opcion) {
@@ -25,7 +25,7 @@ int main() {
                     push(&pila, valor);
                     printf("Valor %d apilado.\n", valor);
                 } else {
-                    printf("La pila está llena.\n");
+                    printf("La pila estï¿½ llena.\n");
                 }
                 break;
             case 2:
@@ -33,21 +33,21 @@ int main() {
                     valor = pop(&pila);
                     printf("Valor desapilado: %d\n", valor);
                 } else {
-                    printf("La pila está vacía.\n");
+                    printf("La pila estï¿½ vacï¿½a.\n");
                 }
                 break;
             case 3:
                 if (!es_vacia(pila)) {
                     printf("El valor en el tope es: %d\n", peek(pila));
                 } else {
-                    printf("La pila está vacía.\n");
+                    printf("La pila estï¿½ vacï¿½a.\n");
                 }
                 break;
             case 4:
                 printf("Saliendo...\n");
                 break;
             default:
-                printf("Opción no válida.\n");
+                printf("Opciï¿½n no vï¿½lida.\n");
         }
     } while (opcion != 4);
 
