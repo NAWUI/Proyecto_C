@@ -1,6 +1,7 @@
 #ifndef TDAFILA_H_INCLUDED
 #define TDAFILA_H_INCLUDED
 
+#include <stdlib.h>
 #include "TDAauto.h"
 
 typedef struct nodo {
@@ -86,7 +87,7 @@ void reset(List_of_auto *l) {
 }
 
 // Muestra los autos en la lista
-/*
+
 void mostrar(List_of_auto l) {
     Nodo *temp = l.acc;
     while (temp != NULL) {
@@ -96,5 +97,5 @@ void mostrar(List_of_auto l) {
         temp = temp->next;
     }
 }
-*/
+
 #endif // TDAFILA_H_INCLUDED
