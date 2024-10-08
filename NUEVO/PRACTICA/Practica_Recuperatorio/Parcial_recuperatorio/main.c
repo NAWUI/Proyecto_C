@@ -63,9 +63,9 @@ void buscar_codigo(Proveedor infoP[], char code[], int canT) {
     }
 }
 
-// Función recursiva para contar proveedores por categoría sin usar un contador explícito
+// Funcion recursiva para contar proveedores por categorï¿½a sin usar un contador explï¿½cito
 int cant_cat_sincontador(Proveedor infoP[], int canT, int categoria) {
-    if (canT == 0) {
+    if (canT == -1) {
         return 0;
     }
     if (infoP[canT - 1].categoria == categoria) {
@@ -75,7 +75,7 @@ int cant_cat_sincontador(Proveedor infoP[], int canT, int categoria) {
 }
 
 /*
-// Función con contador
+// Funcion con contador
 int cant_cat_contador(Proveedor infoP[], int canT, int categoria) {
     int contador = 0;
     for (int i = 0; i < canT; i++) {
@@ -123,13 +123,13 @@ int main() {
             case 3:
                 printf("Ingrese la categoria a contar (1-4):\n");
                 scanf("%d", &cate_r);
-                printf("Cantidad de proveedores en la categoría %d: %d\n", cate_r, cant_cat_sincontador(registroP, cantidadtotal, cate_r));
+                printf("Cantidad de proveedores en la categorï¿½a %d: %d\n", cate_r, cant_cat_sincontador(registroP, cantidadtotal, cate_r));
                 break;
             case 0:
                 printf("Saliendo...\n");
                 break;
             default:
-                printf("Opción inválida\n");
+                printf("Opciï¿½n invï¿½lida\n");
         }
     } while (opcion != 0);
 

@@ -57,7 +57,7 @@ void temp_prom(Temperatura registro_t[], int cantidad, char localidad[]) {
 }
 int temp_MAX(Temperatura registro[],int cantidad,float t_MAX, int cont){
 
-    if (cantidad == 0){
+    if (cantidad == -1){
         return cont;
     }
     else {
