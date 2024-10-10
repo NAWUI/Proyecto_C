@@ -6,7 +6,7 @@
 
 int main() {
     List_of_auto filaAutos;
-    init(&filaAutos); // Capacidad máxima de la fila
+    init(&filaAutos); // Capacidad mï¿½xima de la fila
     Auto miAuto;
     char marci[50];
     char model[50];
@@ -17,12 +17,12 @@ int main() {
     int opcion, cursor = 0;
 
     do {
-        printf("--------- Menú ---------\n");
+        printf("--------- Menu ---------\n");
         printf("1. Cargar Auto\n");
         printf("2. Mostrar Autos\n");
         printf("3. Mostrar Auto en Cursor\n");
         printf("4. Salir\n");
-        printf("Seleccione una opción: ");
+        printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
         getchar(); // Limpiar el buffer
 
@@ -30,7 +30,7 @@ int main() {
             case 1:
                 printf("Ingrese la marca del Auto:\n");
                 fgets(marci, sizeof(marci), stdin);
-                marci[strcspn(marci, "\n")] = '\0'; // Eliminar el salto de línea
+                marci[strcspn(marci, "\n")] = '\0'; // Eliminar el salto de lï¿½nea
                 Set_marca(&miAuto, marci);
 
                 printf("Ingrese el modelo del Auto:\n");
@@ -42,7 +42,7 @@ int main() {
                 scanf("%d", &cantKM);
                 Set_cant_KM(&miAuto, cantKM);
 
-                printf("Ingrese el año del Auto:\n");
+                printf("Ingrese el aï¿½o del Auto:\n");
                 scanf("%d", &anio);
                 Set_anio(&miAuto, anio);
 
@@ -57,7 +57,7 @@ int main() {
                 Set_precio(&miAuto, preci);
 
                 if (enqueue(&filaAutos, miAuto) == -1) {
-                    printf("La fila está llena, no se puede agregar el auto.\n");
+                    printf("La fila esta llena, no se puede agregar el auto.\n");
                 } else {
                     printf("Auto agregado a la fila.\n");
                 }
@@ -69,7 +69,7 @@ int main() {
                 break;
 
             case 3:
-                printf("Ingrese la posición del cursor (0 a %d): ", filaAutos.fondo - 1);
+                printf("Ingrese la posicion del cursor (0 a %d): ", filaAutos.fondo - 1);
                 scanf("%d", &cursor);
                 mostrarCursor(filaAutos, cursor);
                 break;
@@ -79,7 +79,7 @@ int main() {
                 break;
 
             default:
-                printf("Opción no válida, intente de nuevo.\n");
+                printf("Opcion no valida, intente de nuevo.\n");
         }
     } while (opcion != 4);
 

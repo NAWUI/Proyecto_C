@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1728422258 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad7_tp7.2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDAauto.h"
+	"TDAlista.h"
+
+1728422258 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad7_tp7.2\tdaauto.h
+
+1728422258 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad7_tp7.2\tdalista.h
+

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1728423457 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\practica\practica_recuperatorio\parcial_recuperatorio\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
