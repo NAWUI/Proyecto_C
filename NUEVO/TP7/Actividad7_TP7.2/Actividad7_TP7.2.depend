@@ -9,3 +9,16 @@
 
 1728422258 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tp7\actividad7_tp7.2\tdalista.h
 
+1728564745 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp7\actividad7_tp7.2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDAAuto.h"
+	"TDALista.h"
+
+1728564989 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp7\actividad7_tp7.2\tdaauto.h
+	<stdio.h>
+	<string.h>
+
+1728565088 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp7\actividad7_tp7.2\tdalista.h
+	"TDAauto.h"
+

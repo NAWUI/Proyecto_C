@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1728566612 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp7\actividad8_tp7\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDApersona.h"
+	"TDALista.h"
+
+1728566344 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp7\actividad8_tp7\tdapersona.h
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1728566612 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tp7\actividad8_tp7\tdalista.h
+	"TDApersona.h"
+
