@@ -18,37 +18,33 @@ typedef struct {
 } Proveedor;
 
 int carga_n_proveedores(Proveedor infoP[], int *cantT, int rep) {
-    for (int i = *cantT; i < *cantT + rep; (i)++) {
+    for (int i = *cantT; i < *cantT + rep; i++) {
         printf("Ingres la Razon Social del Proveedor\n");
-        scanf("%s", infoP[i].Razon_Social);
-        //gets(infoP[*cantT]->Razon_Social);
-        getchar();
+        scanf("%s", infoP[i].Razon_Social); // Leer string con scanf
+
         printf("Ingrese el codigo del Proveedor\n");
         scanf("%s", infoP[i].Codigo);
-        //gets(infoP[*cantT]->Codigo);
-        getchar();
+
         printf("Ingrese la Calle del proveedor\n");
-        gets(infoP[i].dire_P.calle);
-        getchar();
+        scanf("%s", infoP[i].dire_P.calle);
+
         printf("Ingrese el numero del Proveedor\n");
         scanf("%d", &infoP[i].dire_P.numero);
-        getchar();
+
         printf("Ingrese la Localidad del proveedor\n");
-        gets(infoP[i].dire_P.localidad);
-        getchar();
+        scanf("%s", infoP[i].dire_P.localidad);
+
         printf("Seleccione la Categoria del proveedor (1-4)\n");
         scanf("%d", &infoP[i].categoria);
-        getchar();
     }
 
     *cantT += rep;
     return *cantT;
-
 }
 
 void buscar_codigo(Proveedor infoP[], char code[], int canT) {
-    int i;
-    for (i = 0; i < canT; i++) {
+    int encontrado = 0;
+    for (int i = 0; i < canT; i++) {
         if (strcmp(infoP[i].Codigo, code) == 0) {
             printf("Razon Social: %s\n", infoP[i].Razon_Social);
             printf("Codigo: %s\n", infoP[i].Codigo);
@@ -69,7 +65,13 @@ void buscar_codigo(Proveedor infoP[], char code[], int canT) {
                     printf("Categoria: CAT4\n");
                     break;
             }
+            encontrado = 1;
+            break;
         }
+    }
+
+    if (!encontrado) {
+        printf("Proveedor con codigo %s no encontrado.\n", code);
     }
 }
 
@@ -100,18 +102,17 @@ int main() {
     Proveedor registroP[Max];
     int cantidadtotal = 0;
     char codigo_r[50];
-    int num;
     int cate_r;
     int opcion;
     int repetir;
 
     do {
-        printf("/-------Menu-------\ \n");
+        printf("/-------Menu-------\\ \n");
         printf("(1)-Carga de proveedor/es \n");
         printf("(2)-Buscar proveedor por codigo\n");
         printf("(3)-Contar proveedores por X categoria\n");
         printf("(0)-Salir\n");
-        printf("\------------------/\n");
+        printf("\\------------------/\n");
         scanf("%d", &opcion);
 
         switch (opcion) {
@@ -119,7 +120,6 @@ int main() {
                 if (cantidadtotal < Max) {
                     printf("Cantidad de proveedores que cargar\n");
                     scanf("%d", &repetir);
-                    getchar();
                     carga_n_proveedores(registroP, &cantidadtotal, repetir);
                 } else {
                     printf("Maximo de proveedores alcanzado\n");
@@ -127,7 +127,7 @@ int main() {
                 break;
             case 2:
                 printf("Ingrese el Codigo del proveedor\n");
-                gets(codigo_r);
+                scanf("%s", codigo_r);
                 buscar_codigo(registroP, codigo_r, cantidadtotal);
                 break;
             case 3:
@@ -139,7 +139,7 @@ int main() {
                 printf("Saliendo...\n");
                 break;
             default:
-                printf("Opci�n inv�lida\n");
+                printf("Opción inválida\n");
         }
     } while (opcion != 0);
 
