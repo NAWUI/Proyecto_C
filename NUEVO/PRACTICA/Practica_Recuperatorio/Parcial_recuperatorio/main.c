@@ -39,6 +39,7 @@ int carga_n_proveedores(Proveedor infoP[], int *cantT, int rep) {
         printf("Seleccione la Categoria del proveedor (1-4)\n");
         scanf("%d", &infoP[i].categoria);
         getchar();
+
     }
 
     *cantT += rep;
