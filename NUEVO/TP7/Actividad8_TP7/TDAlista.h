@@ -17,7 +17,6 @@ typedef struct {
     Nodo *aux;  // Cursor auxiliar (anterior al actual)
 } Lista;
 
-// Implementación de las funciones
 void init(Lista *l) {
     l->acc = NULL;
     l->cur = NULL;
@@ -51,7 +50,6 @@ Persona is_copy(Lista *l) {
 void is_insert(Lista *l, Persona valor) {
     Nodo *nuevo = (Nodo*)malloc(sizeof(Nodo));
     if (nuevo == NULL) {
-        printf("Error: No se pudo asignar memoria.\n");
         return;
     }
     nuevo->vipd = valor;
@@ -63,10 +61,10 @@ void is_insert(Lista *l, Persona valor) {
         l->aux = NULL;
     }
     else if (l->cur == l->acc) {
-        nuevo->next = l->cur;
-        l->acc = nuevo;
+
+        l->cur->next = nuevo;
+        l->aux = l->cur;
         l->cur = nuevo;
-        l->aux = nuevo;
     }
     else {
         l->aux->next = nuevo;
@@ -76,25 +74,28 @@ void is_insert(Lista *l, Persona valor) {
 }
 
 void suppress(Lista *l) {
-    if (is_emptys(l)) {
-        printf("Lista vacía, no se puede suprimir.\n");
-        return;
-    }
 
-    Nodo *eliminar = l->cur;
+  //  Nodo *eliminar = l->cur;
 
+    // Caso 1: Eliminar el primer nodo
     if (l->cur == l->acc) {
-        l->acc = l->cur->next;
-        l->cur = l->acc;
+            printf("flacooooo2");
+        l->acc = l->cur->next;  // Actualizamos el puntero acc al siguiente nodo
+        free((void*)l->cur);
+        l->cur = l->acc;         // Avanzamos el cursor al nuevo primer nodo
+        l->aux = l->acc;
+
     }
+    // Caso 2: Eliminar un nodo intermedio o el último
     else {
+        // Ajustamos el puntero del nodo anterior (aux->next) al siguiente del nodo actual (cur->next)
         l->aux->next = l->cur->next;
-        l->cur = l->cur->next;
+        free((void*)l->cur);
+        l->cur = l->aux->next;  // Avanzamos el cursor
+
+        }
+
     }
-
-    free(eliminar);
-}
-
 int isOos(Lista *l) {
     return l->cur == NULL;
 }

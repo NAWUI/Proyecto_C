@@ -3,7 +3,6 @@
 #include "TDApersona.h"
 #include "TDALista.h"
 
-// Función para mostrar la lista de personas
 void mostrar_lista(Lista *l) {
     if (is_emptys(l)) {
         printf("La lista está vacía.\n");
@@ -13,13 +12,12 @@ void mostrar_lista(Lista *l) {
     reset(l);
     while (!isOos(l)) {
         Persona a = is_copy(l);
-        printf("Nombre: %s, Apellido: %s, DNI: %d, Email: %s\n",
+        printf("Nombre: %s,\n Apellido: %s,\n DNI: %d,\n Email: %s\n \n",
                get_nombre(a), get_apellido(a), get_dni(a), get_email(a));
         forwards(l);
     }
 }
 
-// Función para crear una persona desde el input del usuario
 Persona crear_Persona() {
     Persona nueva_persona;
     char nombre[max_char];
@@ -29,44 +27,43 @@ Persona crear_Persona() {
 
     printf("Ingrese nombre: ");
     fgets(nombre, max_char, stdin);
-    nombre[strcspn(nombre, "\n")] = '\0'; // Eliminar el salto de línea
+    nombre[strcspn(nombre, "\n")] = '\0';
     set_nombre(&nueva_persona, nombre);
 
     printf("Ingrese apellido: ");
     fgets(apellido, max_char, stdin);
-    apellido[strcspn(apellido, "\n")] = '\0'; // Eliminar el salto de línea
+    apellido[strcspn(apellido, "\n")] = '\0';
     set_apellido(&nueva_persona, apellido);
 
     printf("Ingrese email: ");
     fgets(email, max_char, stdin);
-    email[strcspn(email, "\n")] = '\0'; // Eliminar el salto de línea
+    email[strcspn(email, "\n")] = '\0';
     set_email(&nueva_persona, email);
 
     printf("Ingrese dni: ");
     scanf("%d", &dni);
     set_dni(&nueva_persona, dni);
-    getchar(); // Limpiar el buffer de entrada
+    getchar();
 
     return nueva_persona;
 }
 
-// Función para buscar una persona por DNI
 void buscar_persona(Lista *l, int dni) {
     reset(l);
     while (!isOos(l)) {
-        Persona a = copy(l);
+       Persona a = is_copy(l);
         if (get_dni(a) == dni) {
             printf("Persona encontrada:\n");
-            printf("Nombre: %s, Apellido: %s, DNI: %d, Email: %s\n",
+            printf("Nombre: %s,\n Apellido: %s,\n DNI: %d,\n Email: %s\n \n",
                    get_nombre(a), get_apellido(a), get_dni(a), get_email(a));
             return;
         }
         forwards(l);
     }
-    printf("No se encontró ninguna persona con el DNI %d.\n", dni);
+    printf("No se encontro ninguna persona con el DNI %d.\n", dni);
 }
 
-// Función para mostrar el menú
+
 void mostrar_menu() {
     printf("\nMenu:\n");
     printf("1. Insertar una persona\n");
@@ -79,24 +76,24 @@ void mostrar_menu() {
 
 int main() {
     Lista lista;
-    init(&lista);  // Inicializamos la lista
+    init(&lista);
 
     int opcion, dni;
     do {
         mostrar_menu();
         scanf("%d", &opcion);
-        getchar();  // Limpiar el buffer de entrada después de leer la opción
+        getchar();
 
         switch (opcion) {
             case 1: {
                 Persona nueva_persona = crear_Persona();
-                insert(&lista, nueva_persona);
+                is_insert(&lista, nueva_persona);
                 printf("Persona insertada correctamente.\n");
                 break;
             }
             case 2: {
-                if (empty(&lista)) {
-                    printf("La lista está vacía, no se puede suprimir.\n");
+                if (is_emptys(&lista)) {
+                    printf("La lista esta vacia, no se puede suprimir.\n");
                 } else {
                     suppress(&lista);
                     printf("Persona suprimida correctamente.\n");
@@ -115,7 +112,7 @@ int main() {
                 printf("Saliendo del programa.\n");
                 break;
             default:
-                printf("Opción no válida, por favor seleccione otra opción.\n");
+                printf("Opción no valida, por favor seleccione otra opcion.\n");
         }
     } while (opcion != 5);
 
