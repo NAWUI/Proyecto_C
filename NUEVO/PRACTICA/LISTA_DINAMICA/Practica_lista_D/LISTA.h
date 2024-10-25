@@ -1,5 +1,6 @@
-#ifndef LISTA_H_INCLUDED
-#define LISTA_H_INCLUDED
+#include <stdlib.h>
+#include <stdio.h>
+#include "TDA.h"
 
 struct nodo
 {
@@ -29,10 +30,9 @@ void resetL(Lista *l){
     l->aux=l->acc;
 }
 
-void insertL (Lista *l, int a){
-    Nodo *nuevo=(Nodo*)malloc(sezeof(Nodo));
+void insertL (Lista *l, Persona a){
+    Nodo *nuevo=(Nodo*)malloc(sizeof(Nodo));
 
-        if (aux != NULL){
             if((l->cur)==(l->acc)){
                 l->acc=nuevo;
                 (*nuevo).next=l->cur;
@@ -43,11 +43,10 @@ void insertL (Lista *l, int a){
                 (*nuevo).next=l->cur;
                 l->cur=nuevo;
             }
-            l->cur->vipd=a
-        }
+            l->cur->vipd=a;
 }
-int is_copy(Lista l){
-    return l->cur->vipd
+Persona is_copy(Lista *l){
+    return l->cur->vipd;
 }
 
 int is_emptys(Lista *l)
@@ -56,5 +55,54 @@ int is_emptys(Lista *l)
 }
 
 int is_Full(Lista l){
-    Nodo *X=()}
-#endif // LISTA_H_INCLUDED
+    Nodo *X=(Nodo*)malloc(sizeof(Nodo));
+        if (X==NULL){
+            return 1;
+        }else{
+            free((void*)X);
+            return 0;
+        }
+}
+
+int is_Oos(Lista l){
+    if(l.cur==NULL){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+
+void forwards(Lista *l)
+{
+    l->aux = l->cur;
+    l->cur = l->cur->next;
+}
+
+void suppress(Lista *l)
+    {
+        if (l->cur == l->acc)
+        {
+            l->acc = l->cur->next;
+            free(l->cur);
+            l->cur = l->acc;
+            l->aux = l->acc;
+
+        }
+        else
+        {
+            l->aux->next = l->cur->next;
+            free(l->cur);
+            l->cur = l->aux->next;
+        }
+
+    }
+/*
+void imprimir(Lista l){
+    Nodo *actual =l.acc;
+    while(actual != NULL){
+        printf("nuevo\n");
+        actual = actual->next;
+    }
+}
+*/
+

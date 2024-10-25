@@ -18,7 +18,7 @@ int main() {
         printf("? ");
         scanf("%d", &cuenta);
         getchar();
-        printf("Ingrese el tipo de transaccion (D para deposito, E para extracción): \n");
+        printf("Ingrese el tipo de transaccion (D para deposito, E para extracciï¿½n): \n");
         printf("? ");
         scanf("%c", &tipo);
         getchar();
@@ -29,7 +29,7 @@ int main() {
 
         if (monto == 0) break;
 
-        fprintf(archivo, "%d\t%c\t%.2f\n", cuenta, tipo, monto);
+        fprintf(archivo, "? %d\t? %c\t? %.2f \n", cuenta, tipo, monto);
     }
 
     fclose(archivo);
