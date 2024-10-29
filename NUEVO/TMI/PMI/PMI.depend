@@ -10,3 +10,20 @@
 	<string.h>
 	<stdio.h>
 
+1730238991 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\main.c
+	<stdio.h>
+	<windows.h>
+	<conio.h>
+	"turno.h"
+	"listaD _Turno.h"
+
+1730238920 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\turno.h
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+
+1730238629 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\listad _turno.h
+	<stdlib.h>
+	<stdio.h>
+	"turno.h"
+

@@ -3,6 +3,12 @@
 #include <conio.h>
 
 #include "turno.h"
+#include "listaD _Turno.h"
+typedef struct {
+char nombre_t[50];
+float precio_t;
+}tratamientosdatos;
+
 
 // Funcion para cambiar color de texto
 void setColor(int color) {
@@ -102,7 +108,6 @@ int obtenerOpcion() {
 int main() {
     Turno miTurno;
     int opcionPrincipal, opcionTurnos, opcionClientes, opcionReportes;
-
 
     do {
         mostrarMenuPrincipal();
