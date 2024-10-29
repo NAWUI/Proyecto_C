@@ -1,104 +1,190 @@
 #ifndef TURNO_H_INCLUDED
 #define TURNO_H_INCLUDED
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <string.h> // Para usar strcpy
+#include <stdio.h>  // Para usar printf
 
-typedef struct {
-    int idturno;
-    char nombre[20];        // Nombre del cliente (sin espacios)
-    int idcliente;          // DNI del cliente habitual
-    int tratamiento[10];    // IDs de tratamientos (puede haber varios por turno)
-    char F_pago[10];        // Forma de pago (débito, crédito, QR, efectivo)
-    float Total;            // Monto total a pagar
-    Fecha Fecha_Turno;  // Fecha del turno
-    int Realizado;          // 1 si el turno se realizó, 0 si no
-} Turno;
+#define MAX_TRATAMIENTOS 10
 
 typedef struct {
     int dia;
     int mes;
     int anio;
-    int hora;
 } Fecha;
+
+typedef struct {
+    int idTurno;
+    char nombre[50];
+    int idCliente;
+    int tratamientos[MAX_TRATAMIENTOS];
+    int cantidadTratamientos;
+    char formaPago[10];
+    float total;
+    Fecha fecha;
+    int realizado;
+} Turno;
+
+void setIdTurno(Turno *turno, int id) {
+    turno->idTurno = id;
+}
+
+void setNombre(Turno *turno, const char *nombre) {
+    strcpy(turno->nombre, nombre);
+}
+
+void setIdCliente(Turno *turno, int idCliente) {
+    turno->idCliente = idCliente;
+}
 /*
-void initTurno(Turno *a) {
-    a->idturno = 0;
-    strcpy(a->nombre, "");
-    a->idcliente = -1;
-    for (int i = 0; i < 10; i++) {
-        a->tratamiento[i] = 0;
+void setTratamientos(Turno *turno, int tratamientos[], int cantidad) {
+    if (cantidad <= MAX_TRATAMIENTOS) {
+        for (int i = 0; i < cantidad; i++) {
+            turno->tratamientos[i] = tratamientos[i];
+        }
+        turno->cantidadTratamientos = cantidad;
+    } else {
+        printf("Error: No se pueden agregar más de %d tratamientos.\n", MAX_TRATAMIENTOS);
     }
-    strcpy(a->F_pago, "");
-    a->Total = 0.0;
-    a->Fecha_Turno.dia = 1;
-    a->Fecha_Turno.mes = 1;
-    a->Fecha_Turno.anio = 2024;
-    a->Fecha_Turno.hora = 9;
-    a->Realizado = 0;
 }
 */
-void Set_idTurno(Turno *a, int idturno) {
-    a->idturno = idturno;
+void setFormaPago(Turno *turno, const char *formaPago) {
+    strcpy(turno->formaPago, formaPago);
 }
 
-void Set_nombre(Turno *a, char *nombre) {
-    strcpy(a->nombre, nombre);
+void setTotal(Turno *turno, float total) {
+    turno->total = total;
 }
 
-void Set_idCliente(Turno *a, int idcliente) {
-    a->idcliente = idcliente;
+void setFecha(Turno *turno, Fecha fecha) {
+    turno->fecha = fecha;
 }
 
-void Set_tratamiento(Turno *a, int *tratamientos, int cantidad) {
-    for (int i = 0; i < cantidad; i++) {
-        a->tratamiento[i] = tratamientos[i];
+void setRealizado(Turno *turno, int realizado) {
+    turno->realizado = realizado;
+}
+
+int getIdTurno(const Turno *turno) {
+    return turno->idTurno;
+}
+
+char* getNombre(const Turno *turno) {
+    char *nombre = (char *)malloc((strlen(turno->nombre) + 1) * sizeof(char));
+    if (nombre != NULL) {
+        strcpy(nombre, turno->nombre);
+    }
+    return nombre;
+}
+
+int getIdCliente(const Turno *turno) {
+    return turno->idCliente;
+}
+
+void getTratamientos(const Turno *turno, int tratamientos[], int *cantidad) {
+    *cantidad = turno->cantidadTratamientos;
+    for (int i = 0; i < *cantidad; i++) {
+        tratamientos[i] = turno->tratamientos[i];
     }
 }
 
-void Set_formaPago(Turno *a, char *formaPago) {
-    strcpy(a->F_pago, formaPago);
+char* getFormaPago(const Turno *turno) {
+    char *formaPago = (char *)malloc((strlen(turno->formaPago) + 1) * sizeof(char));
+    if (formaPago != NULL) {
+        strcpy(formaPago, turno->formaPago);
+    }
+    return formaPago;
 }
 
-void Set_total(Turno *a, float total) {
-    a->Total = total;
+float getTotal(const Turno *turno) {
+    return turno->total;
 }
 
-void Set_fecha(Turno *a, Fecha fecha) {
-    a->Fecha_Turno = fecha;
+Fecha getFecha(const Turno *turno) {
+    return turno->fecha;
 }
 
-void Set_realizado(Turno *a, int realizado) {
-    a->Realizado = realizado;
+int getRealizado(const Turno *turno) {
+    return turno->realizado;
 }
 
-int get_tratamiento(Turno * a,int indice){
 
+/*
+
+// Función para agregar un tratamiento (por su ID)
+int agregarTratamiento(Turno *t, int tratamientoId) {
+    if (t->cantidadTratamientos < MAX_TRATAMIENTOS && !t->realizado) {
+        t->tratamientos[t->cantidadTratamientos] = tratamientoId;
+        t->cantidadTratamientos++;
+        return 1; // Éxito
+    }
+    return 0; // Fallo
 }
 
-int Get_idTurno(Turno a) {
-    return a.idturno;
+// Función para setear la forma de pago
+int setFormaPago(Turno *t, const char *formaPago) {
+    if (t->realizado) {
+        return 0; // No se puede modificar si ya fue realizado
+    }
+    strncpy(t->formaPago, formaPago, sizeof(t->formaPago) - 1);
+    t->formaPago[sizeof(t->formaPago) - 1] = '\0';
+    return 1; // Éxito
 }
 
-char* Get_nombre(Turno a) {
-    return a.nombre;
+// Función para cambiar el estado de realizado
+void marcarRealizado(Turno *t) {
+    t->realizado = 1; // Cambiar a realizado
 }
 
-int Get_idCliente(Turno a) {
-    return a.idcliente;
+// Función para obtener el total a pagar (considerando descuentos si es cliente habitual)
+float calcularTotal(Turno *t, float precios[MAX_TRATAMIENTOS]) {
+    float total = 0.0;
+    for (int i = 0; i < t->cantidadTratamientos; i++) {
+        total += precios[t->tratamientos[i]]; // Sumar el precio del tratamiento
+    }
+
+    // Aplicar descuento si es cliente habitual
+    if (t->idCliente > 0) { // Asumimos que ID de cliente > 0 indica que es habitual
+        if (t->idCliente == 1) { // Nivel 1
+            total *= 0.95; // 5% de descuento
+        } else if (t->idCliente == 2) { // Nivel 2
+            total *= 0.90; // 10% de descuento
+        } else if (t->idCliente == 3) { // Nivel 3
+            total *= 0.85; // 15% de descuento
+        }
+    }
+
+    t->total = total; // Asignar total calculado al turno
+    return total;
 }
 
-float Get_total(Turno a) {
-    return a.Total;
-}
 
-Fecha Get_fecha(Turno a) {
-    return a.Fecha_Turno;
-}
+// Función para validar la fecha y hora
+int validarFecha(Fecha fecha) {
+    if (fecha.anio < 2024 || fecha.anio > 2024) {
+        return 0; // Año fuera de rango
+    }
+    if (fecha.mes < 11 || fecha.mes > 12) {
+        return 0; // Mes fuera de rango
+    }
+    if (fecha.dia < 1 || fecha.dia > 31) {
+        return 0; // Día fuera de rango
+    }
 
-int Get_realizado(Turno a) {
-    return a.Realizado;
+    // Control de días de la semana (lunes a sábado)
+    // Para simplificar, consideramos el día 1/11/2024 como viernes (cálculo manual o función)
+    int diaSemana = (fecha.dia + (fecha.mes - 11) * 30) % 7; // Cálculo simple, puedes usar una mejor función
+
+    if (diaSemana == 0) {
+        return 0; // Domingo
+    }
+
+    // Control de horas (de 9 a 20)
+    if (fecha.hora < 9 || fecha.hora > 20) {
+        return 0; // Hora fuera de rango
+    }
+
+    return 1; // Fecha válida
 }
+*/
 
 #endif // TURNO_H_INCLUDED

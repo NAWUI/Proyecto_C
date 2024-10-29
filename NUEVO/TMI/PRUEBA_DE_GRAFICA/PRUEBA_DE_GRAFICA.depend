@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1730170370 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\prueba_de_grafica\main.c
+	<stdio.h>
+	<windows.h>
+

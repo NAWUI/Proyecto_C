@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "TDAPRECIOS.h"
 #include "FILA_PRECIOS.h"
 
@@ -11,7 +13,11 @@ void cargarProducto(FilaProductos *fila) {
     productos nuevoProducto;
     int num_produ;
     float price_produ;
+    char nom_produ[50];
 
+    printf("Ingrese el nombre del Producto: \n");
+    scanf(" %s", nom_produ);
+    Set_No_pro(&nuevoProducto, nom_produ);
     printf("Ingrese el Numero del Producto: \n");
     scanf("%d", &num_produ);
     Set_N_pro(&nuevoProducto, num_produ);
