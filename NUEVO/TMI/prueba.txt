@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Definición de la constante MAX_TRATAMIENTOS
+#define MAX_TRATAMIENTOS 10
+
+// Definición de la estructura Fecha
+typedef struct {
+    int dia;
+    int mes;
+    int anio;
+    int hora; // Solo la hora, sin minutos
+} Fecha;
+
+// Definición de la estructura Turno
+typedef struct {
+    int idTurno;             // ID único, generado automáticamente
+    char nombre[50];         // Nombre del cliente (sin espacios)
+    int idCliente;           // DNI del cliente habitual
+    int tratamientos[MAX_TRATAMIENTOS]; // Arreglo para almacenar tratamientos (hasta 10)
+    int cantidadTratamientos; // Agregado para contar tratamientos
+    char formaPago[10];      // Forma de pago (débito, crédito, QR, efectivo)
+    float total;             // Monto total a pagar
+    Fecha fecha;             // Fecha del turno
+    int realizado;           // 0: No realizado, 1: Realizado
+} Turno;
+
+#include <string.h> // Para usar strcpy
+#include <stdio.h>  // Para usar printf
+
+#define MAX_TRATAMIENTOS 10
+
+typedef struct {
+    int dia;
+    int mes;
+    int anio;
+} Fecha;
+
+typedef struct {
+    int idTurno;
+    char nombre[50];
+    int idCliente;
+    int tratamientos[MAX_TRATAMIENTOS];
+    int cantidadTratamientos;
+    char formaPago[10];
+    float total;
+    Fecha fecha;
+    int realizado;
+} Turno;
+
+// Funciones set para cada campo de la estructura Turno
+
+void setIdTurno(Turno *turno, int id) {
+    turno->idTurno = id;
+}
+
+void setNombre(Turno *turno, const char *nombre) {
+    strncpy(turno->nombre, nombre, sizeof(turno->nombre) - 1);
+    turno->nombre[sizeof(turno->nombre) - 1] = '\0'; // Asegura que esté terminada en nulo
+}
+
+void setIdCliente(Turno *turno, int idCliente) {
+    turno->idCliente = idCliente;
+}
+
+void setTratamientos(Turno *turno, int tratamientos[], int cantidad) {
+    if (cantidad <= MAX_TRATAMIENTOS) {
+        for (int i = 0; i < cantidad; i++) {
+            turno->tratamientos[i] = tratamientos[i];
+        }
+        turno->cantidadTratamientos = cantidad;
+    } else {
+        printf("Error: No se pueden agregar más de %d tratamientos.\n", MAX_TRATAMIENTOS);
+    }
+}
+
+void setFormaPago(Turno *turno, const char *formaPago) {
+    strcpy(turno->formaPago, formaPago),
+}
+
+void setTotal(Turno *turno, float total) {
+    turno->total = total;
+}
+
+void setFecha(Turno *turno, Fecha fecha) {
+    turno->fecha = fecha;
+}
+
+void setRealizado(Turno *turno, int realizado) {
+    turno->realizado = realizado;
+}

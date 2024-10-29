@@ -5,6 +5,7 @@
 #include <stdlib.h>
 //struct
 typedef struct{
+    char nombre_produ[50];
     int N_pro;
     float price;
 }productos;
@@ -14,6 +15,10 @@ void Init (productos *a){
     a->price = 0.0;
 }
 //sets
+void Set_No_pro(productos *a,char *nom_producto){
+    strcpy(a->nombre_produ,nom_producto);
+}
+
 void Set_N_pro (productos *a,int num_pro){
     a->N_pro = num_pro;
 }

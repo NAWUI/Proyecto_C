@@ -1,42 +1,32 @@
 #include <stdio.h>
 #include <windows.h>
-#include <conio.h>
 
-#include "turno.h"
-
-// Funcion para cambiar color de texto
+// Función para cambiar color de texto
 void setColor(int color) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, color);
 }
 
-// Funcion para limpiar pantalla
-void limpiarPantalla() {
-    system("cls");
-}
-
-// Funcion para mostrar el menu principal
+// Función para mostrar el menú principal
 void mostrarMenuPrincipal() {
-    limpiarPantalla();
     setColor(14); // Amarillo
     printf("\n**********************************\n");
     printf("*      SISTEMA DE TURNOS         *\n");
     printf("**********************************\n");
     setColor(11); // Cian claro
-    printf("1. Gestion de Turnos\n");
-    printf("2. Gestion de Clientes\n");
+    printf("1. Gestión de Turnos\n");
+    printf("2. Gestión de Clientes\n");
     printf("3. Reportes\n");
     printf("4. Salir\n");
     setColor(15); // Blanco
-    printf("Seleccione una opcion: ");
+    printf("Seleccione una opción: ");
 }
 
-// Submenu para la gestion de turnos
+// Submenú para la gestión de turnos
 void mostrarMenuTurnos() {
-    limpiarPantalla();
     setColor(14); // Amarillo
     printf("\n**********************************\n");
-    printf("*         GESTION DE TURNOS      *\n");
+    printf("*         GESTIÓN DE TURNOS      *\n");
     printf("**********************************\n");
     setColor(11); // Cian claro
     printf("1. Agendar un nuevo turno\n");
@@ -48,17 +38,16 @@ void mostrarMenuTurnos() {
     printf("7. Cancelar un turno\n");
     printf("8. Confirmar asistencia de turno\n");
     printf("9. Mostrar turnos no realizados\n");
-    printf("0. Volver al menu principal\n");
+    printf("0. Volver al menú principal\n");
     setColor(15); // Blanco
-    printf("Seleccione una opcion: ");
+    printf("Seleccione una opción: ");
 }
 
-// Submenu para la gestion de clientes
+// Submenú para la gestión de clientes
 void mostrarMenuClientes() {
-    limpiarPantalla();
     setColor(14); // Amarillo
     printf("\n**********************************\n");
-    printf("*         GESTION DE CLIENTES    *\n");
+    printf("*         GESTIÓN DE CLIENTES    *\n");
     printf("**********************************\n");
     setColor(11); // Cian claro
     printf("1. Registrar nuevo cliente\n");
@@ -66,53 +55,39 @@ void mostrarMenuClientes() {
     printf("3. Eliminar cliente\n");
     printf("4. Precargar lista de clientes\n");
     printf("5. Mostrar todos los clientes\n");
-    printf("0. Volver al menu principal\n");
+    printf("0. Volver al menú principal\n");
     setColor(15); // Blanco
-    printf("Seleccione una opcion: ");
+    printf("Seleccione una opción: ");
 }
 
-// Submenu para los reportes
+// Submenú para los reportes
 void mostrarMenuReportes() {
-    limpiarPantalla();
     setColor(14); // Amarillo
     printf("\n**********************************\n");
     printf("*         REPORTES               *\n");
     printf("**********************************\n");
     setColor(11); // Cian claro
     printf("1. Ganancia mensual\n");
-    printf("2. Guardar turnos segun forma de pago\n");
+    printf("2. Guardar turnos según forma de pago\n");
     printf("3. Mostrar turnos por tratamiento\n");
-    printf("0. Volver al menu principal\n");
+    printf("0. Volver al menú principal\n");
     setColor(15); // Blanco
-    printf("Seleccione una opcion: ");
+    printf("Seleccione una opción: ");
 }
 
-// Validacion de entrada para asegurarse de que el usuario ingresa un numero
-int obtenerOpcion() {
-    int opcion;
-    if (scanf("%d", &opcion) != 1) {
-        printf("Entrada invalida. Por favor ingrese un numero.\n");
-        fflush(stdin); // Limpiar el buffer en Windows
-        opcion = -1;  // Indica opcion invalida
-    }
-    return opcion;
-}
-
-// Funcion principal
+// Función principal
 int main() {
-    Turno miTurno;
     int opcionPrincipal, opcionTurnos, opcionClientes, opcionReportes;
-
 
     do {
         mostrarMenuPrincipal();
-        opcionPrincipal = obtenerOpcion();
+        scanf("%d", &opcionPrincipal);
 
         switch(opcionPrincipal) {
             case 1:
                 do {
                     mostrarMenuTurnos();
-                    opcionTurnos = obtenerOpcion();
+                    scanf("%d", &opcionTurnos);
                     switch(opcionTurnos) {
                         case 1:
                             printf("Agendar un nuevo turno.\n");
@@ -142,20 +117,18 @@ int main() {
                             printf("Mostrar turnos no realizados.\n");
                             break;
                         case 0:
-                            printf("Volviendo al menu principal...\n");
+                            printf("Volviendo al menú principal...\n");
                             break;
                         default:
-                            printf("Opcion invalida. Intente nuevamente.\n");
+                            printf("Opción inválida. Intente nuevamente.\n");
                     }
-                    printf("Presione cualquier tecla para continuar...\n");
-                    getch();
                 } while(opcionTurnos != 0);
                 break;
 
             case 2:
                 do {
                     mostrarMenuClientes();
-                    opcionClientes = obtenerOpcion();
+                    scanf("%d", &opcionClientes);
                     switch(opcionClientes) {
                         case 1:
                             printf("Registrar nuevo cliente.\n");
@@ -173,38 +146,34 @@ int main() {
                             printf("Mostrar todos los clientes.\n");
                             break;
                         case 0:
-                            printf("Volviendo al menu principal...\n");
+                            printf("Volviendo al menú principal...\n");
                             break;
                         default:
-                            printf("Opcion invalida. Intente nuevamente.\n");
+                            printf("Opción inválida. Intente nuevamente.\n");
                     }
-                    printf("Presione cualquier tecla para continuar...\n");
-                    getch();
                 } while(opcionClientes != 0);
                 break;
 
             case 3:
                 do {
                     mostrarMenuReportes();
-                    opcionReportes = obtenerOpcion();
+                    scanf("%d", &opcionReportes);
                     switch(opcionReportes) {
                         case 1:
                             printf("Ganancia mensual.\n");
                             break;
                         case 2:
-                            printf("Guardar turnos segun forma de pago.\n");
+                            printf("Guardar turnos según forma de pago.\n");
                             break;
                         case 3:
                             printf("Mostrar turnos por tratamiento.\n");
                             break;
                         case 0:
-                            printf("Volviendo al menu principal...\n");
+                            printf("Volviendo al menú principal...\n");
                             break;
                         default:
-                            printf("Opcion invalida. Intente nuevamente.\n");
+                            printf("Opción inválida. Intente nuevamente.\n");
                     }
-                    printf("Presione cualquier tecla para continuar...\n");
-                    getch();
                 } while(opcionReportes != 0);
                 break;
 
@@ -213,10 +182,8 @@ int main() {
                 break;
 
             default:
-                printf("Opcion invalida. Intente nuevamente.\n");
+                printf("Opción inválida. Intente nuevamente.\n");
         }
-        printf("Presione cualquier tecla para continuar...\n");
-        getch();
     } while(opcionPrincipal != 4);
 
     return 0;

@@ -1,13 +1,15 @@
 # depslib dependency file v1.0
-1729797785 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\fila\practica_fila\main.c
+1729935744 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\fila\practica_fila\main.c
 	<stdio.h>
+	<string.h>
+	<stdlib.h>
 	"TDAPRECIOS.h"
 	"FILA_PRECIOS.h"
 
-1729796146 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\fila\practica_fila\tdaprecios.h
+1729930789 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\fila\practica_fila\tdaprecios.h
 	<string.h>
 	<stdlib.h>
 
-1729797775 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\fila\practica_fila\fila_precios.h
+1729934954 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\fila\practica_fila\fila_precios.h
 	"TDAPRECIOS.h"
 

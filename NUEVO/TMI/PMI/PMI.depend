@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1730231538 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\main.c
+	<stdio.h>
+	<windows.h>
+	<conio.h>
+	"turno.h"
+
+1730231513 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\turno.h
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+
