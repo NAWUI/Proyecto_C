@@ -9,7 +9,6 @@ char nombre_t[50];
 float precio_t;
 }tratamientosdatos;
 
-
 // Funcion para cambiar color de texto
 void setColor(int color) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -106,7 +105,7 @@ int obtenerOpcion() {
 
 // Funcion principal
 int main() {
-    Turno miTurno;
+
     int opcionPrincipal, opcionTurnos, opcionClientes, opcionReportes;
 
     do {
@@ -121,6 +120,10 @@ int main() {
                     switch(opcionTurnos) {
                         case 1:
                             printf("Agendar un nuevo turno.\n");
+                            printf("Ingrese el id del cliente \n");
+                            scanf("%d", &id_cliente);
+                            printf()
+                            if()
                             break;
                         case 2:
                             printf("Buscar turno por cliente.\n");

@@ -47,12 +47,8 @@ int setTratamiento(Turno *t, int tratamientos[]) {
     int cantidadTratamientos = 0;
     for (int i = 0; i < MAX_TRATAMIENTOS;i++){
         if (tratamientos[i]== 1){
-                cantidadTratamientos++;
+            t[i]->tratamientos = 1
         }
-    }
-    if (tratamientos < MAX_TRATAMIENTOS && !t->realizado) {
-
-
     }
     return 0;
 }
