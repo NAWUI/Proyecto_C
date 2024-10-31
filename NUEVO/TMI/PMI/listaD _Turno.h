@@ -1,7 +1,3 @@
-#ifndef LISTAD__TURNO_H_INCLUDED
-#define LISTAD__TURNO_H_INCLUDED
-
-
 #include <stdlib.h>
 #include <stdio.h>
 #include "turno.h"
@@ -20,21 +16,21 @@ typedef struct
     Nodo *acc;  // Acceso al primer nodo
     Nodo *cur;  // Cursor actual
     Nodo *aux;  // Cursor auxiliar (anterior al actual)
-} Lista;
+}lista_de_turno;
 
-void init(Lista *l)
+void init_turno(lista_de_turno *l)
 {
     l->acc = NULL;
     l->cur = NULL;
     l->aux = NULL;
 }
 
-void resetL(Lista *l){
+void resetL_turno(lista_de_turno *l){
     l->cur=l->acc;
     l->aux=l->acc;
 }
 
-void insertL (Lista *l, Turno a){
+void insertL_turno(lista_de_turno *l, Turno a){
     Nodo *nuevo=(Nodo*)malloc(sizeof(Nodo));
 
             if((l->cur)==(l->acc)){
@@ -49,16 +45,16 @@ void insertL (Lista *l, Turno a){
             }
             l->cur->vipd=a;
 }
-Turno is_copy(Lista *l){
+Turno copy_turno(lista_de_turno *l){
     return l->cur->vipd;
 }
 
-int is_emptys(Lista *l)
+int is_emptys_turno(lista_de_turno *l)
 {
     return l->acc == NULL;
 }
 
-int is_Full(Lista l){
+int is_Full_turno(lista_de_turno l){
     Nodo *X=(Nodo*)malloc(sizeof(Nodo));
         if (X==NULL){
             return 1;
@@ -68,7 +64,7 @@ int is_Full(Lista l){
         }
 }
 
-int is_Oos(Lista l){
+int is_Oos_turno(lista_de_turno l){
     if(l.cur==NULL){
         return 1;
     }else{
@@ -76,13 +72,13 @@ int is_Oos(Lista l){
     }
 }
 
-void forwards(Lista *l)
+void forwards_turno(lista_de_turno *l)
 {
     l->aux = l->cur;
     l->cur = l->cur->next;
 }
 
-void suppress(Lista *l)
+void suppress_turno(lista_de_turno *l)
     {
         if (l->cur == l->acc)
         {
@@ -110,5 +106,3 @@ void imprimir(Lista l){
 }
 */
 
-
-#endif // LISTAD__TURNO_H_INCLUDED

@@ -1,11 +1,16 @@
 # depslib dependency file v1.0
-1730231538 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\main.c
+1730403013 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\main.c
 	<stdio.h>
+	<stdlib.h>
 	<windows.h>
 	<conio.h>
+	<string.h>
 	"turno.h"
+	"cliente.h"
+	"listaD _Turno.h"
+	"listaE_Cliente.h"
 
-1730231513 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\turno.h
+1730402535 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\turno.h
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
@@ -26,4 +31,15 @@
 	<stdlib.h>
 	<stdio.h>
 	"turno.h"
+
+1730312187 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\cliente.h
+	<string.h>
+
+1730336907 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listad _turno.h
+	<stdlib.h>
+	<stdio.h>
+	"turno.h"
+
+1730312100 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listae_cliente.h
+	"cliente.h"
 

@@ -31,6 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="cliente.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="listaD _Turno.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="listaE_Cliente.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

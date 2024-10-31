@@ -16,3 +16,20 @@
 	<stdio.h>
 	"TDA.h"
 
+1729874954 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\lista_dinamica\practica_lista_d\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TDA.h"
+	"LISTA.h"
+
+1729874954 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\lista_dinamica\practica_lista_d\tda.h
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<malloc.h>
+
+1729874954 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\practica\lista_dinamica\practica_lista_d\lista.h
+	<stdlib.h>
+	<stdio.h>
+	"TDA.h"
+
