@@ -1,282 +1,268 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h> //Permite el uso de funciones de entrada y salida, como printf y scanf
+#include <stdlib.h> //Proporciona funciones como system, usada para limpiar la pantalla.
+#include <windows.h>
+#include <conio.h> //Facilita el manejo de caracteres en consola y la función getch(), usada para pausar la ejecución hasta que el usuario presione una tecla.
 #include <string.h>
 
-// Definición de la constante MAX_TRATAMIENTOS
-#define MAX_TRATAMIENTOS 10
+#include "turno.h"
+#include "cliente.h"
+#include "listaD_Turno.h"
+#include "listaE_Cliente.h"
 
-// Definición de la estructura Fecha
-typedef struct {
-    int dia;
-    int mes;
-    int anio;
-    int hora; // Solo la hora, sin minutos
-} Fecha;
-
-// Definición de la estructura Turno
-typedef struct {
-    int idTurno;             // ID único, generado automáticamente
-    char nombre[50];         // Nombre del cliente (sin espacios)
-    int idCliente;           // DNI del cliente habitual
-    int tratamientos[MAX_TRATAMIENTOS]; // Arreglo para almacenar tratamientos (hasta 10)
-    int cantidadTratamientos; // Agregado para contar tratamientos
-    char formaPago[10];      // Forma de pago (débito, crédito, QR, efectivo)
-    float total;             // Monto total a pagar
-    Fecha fecha;             // Fecha del turno
-    int realizado;           // 0: No realizado, 1: Realizado
-} Turno;
-
-#include <string.h> // Para usar strcpy
-#include <stdio.h>  // Para usar printf
-
-#define MAX_TRATAMIENTOS 10
-
-typedef struct {
-    int dia;
-    int mes;
-    int anio;
-} Fecha;
-
-typedef struct {
-    int idTurno;
-    char nombre[50];
-    int idCliente;
-    int tratamientos[MAX_TRATAMIENTOS];
-    int cantidadTratamientos;
-    char formaPago[10];
-    float total;
-    Fecha fecha;
-    int realizado;
-} Turno;
-
-// Funciones set para cada campo de la estructura Turno
-
-void setIdTurno(Turno *turno, int id) {
-    turno->idTurno = id;
+// Función para cambiar color de texto, recibe un numero del cual proviene un color
+void setColor(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color); //aplica el color a traves de esta funcion
 }
 
-void setNombre(Turno *turno, const char *nombre) {
-    strncpy(turno->nombre, nombre, sizeof(turno->nombre) - 1);
-    turno->nombre[sizeof(turno->nombre) - 1] = '\0'; // Asegura que esté terminada en nulo
+// Función para limpiar pantalla
+void limpiarPantalla() {
+    system("cls"); //limpia la pantalla (funcion de windows)
 }
 
-void setIdCliente(Turno *turno, int idCliente) {
-    turno->idCliente = idCliente;
+// Funcion para mostrar el menu principal
+void mostrarMenuPrincipal() {
+    limpiarPantalla();
+    setColor(14); // Amarillo
+    printf("\n**********************************\n");
+    printf("*      SISTEMA DE TURNOS         *\n");
+    printf("**********************************\n");
+    setColor(11); // Cian claro
+    printf("1. Gestion de Turnos\n");
+    printf("2. Gestion de Clientes\n");
+    printf("3. Reportes\n");
+    printf("4. Salir\n");
+    setColor(15); // Blanco
+    printf("Seleccione una opcion: ");
 }
 
-void setTratamientos(Turno *turno, int tratamientos[], int cantidad) {
-    if (cantidad <= MAX_TRATAMIENTOS) {
-        for (int i = 0; i < cantidad; i++) {
-            turno->tratamientos[i] = tratamientos[i];
-        }
-        turno->cantidadTratamientos = cantidad;
-    } else {
-        printf("Error: No se pueden agregar más de %d tratamientos.\n", MAX_TRATAMIENTOS);
+// Submenu para la gestion de turnos
+void mostrarMenuTurnos() {
+    limpiarPantalla();
+    setColor(14); // Amarillo
+    printf("\n**********************************\n");
+    printf("*         GESTION DE TURNOS      *\n");
+    printf("**********************************\n");
+    setColor(11); // Cian claro
+    printf("1. Agendar un nuevo turno\n");
+    printf("2. Buscar turno por cliente\n");
+    printf("3. Mostrar todos los turnos de un mes\n");
+    printf("4. Mostrar turnos por nombre de cliente\n");
+    printf("5. Modificar cantidad de tratamientos\n");
+    printf("6. Modificar forma de pago\n");
+    printf("7. Cancelar un turno\n");
+    printf("8. Confirmar asistencia de turno\n");
+    printf("9. Mostrar turnos no realizados\n");
+    printf("0. Volver al menu principal\n");
+    setColor(15); // Blanco
+    printf("Seleccione una opcion: ");
+}
+
+// Submenu para la gestion de clientes
+void mostrarMenuClientes() {
+    limpiarPantalla();
+    setColor(14); // Amarillo
+    printf("\n**********************************\n");
+    printf("*         GESTION DE CLIENTES    *\n");
+    printf("**********************************\n");
+    setColor(11); // Cian claro
+    printf("1. Registrar nuevo cliente\n");
+    printf("2. Buscar y mostrar clientes\n");
+    printf("3. Eliminar cliente\n");
+    printf("4. Precargar lista de clientes\n");
+    printf("5. Mostrar todos los clientes\n");
+    printf("0. Volver al menu principal\n");
+    setColor(15); // Blanco
+    printf("Seleccione una opcion: ");
+}
+
+// Submenu para los reportes
+void mostrarMenuReportes() {
+    limpiarPantalla();
+    setColor(14); // Amarillo
+    printf("\n**********************************\n");
+    printf("*         REPORTES               *\n");
+    printf("**********************************\n");
+    setColor(11); // Cian claro
+    printf("1. Ganancia mensual\n");
+    printf("2. Guardar turnos segun forma de pago\n");
+    printf("3. Mostrar turnos por tratamiento\n");
+    printf("0. Volver al menu principal\n");
+    setColor(15); // Blanco
+    printf("Seleccione una opcion: ");
+}
+
+// Validacion de entrada para asegurarse de que el usuario ingresa un numero
+int obtenerOpcion() {
+    int opcion;
+    if (scanf("%d", &opcion) != 1) {
+        printf("Entrada invalida. Por favor ingrese un numero.\n");
+        fflush(stdin); // Limpiar el buffer en Windows
+        opcion = -1;  // Indica opcion invalida
     }
+    return opcion;
 }
 
-void setFormaPago(Turno *turno, const char *formaPago) {
-    strcpy(turno->formaPago, formaPago),
-}
-
-void setTotal(Turno *turno, float total) {
-    turno->total = total;
-}
-
-void setFecha(Turno *turno, Fecha fecha) {
-    turno->fecha = fecha;
-}
-
-void setRealizado(Turno *turno, int realizado) {
-    turno->realizado = realizado;
-}
-
-
-#ifndef TURNO_H_INCLUDED
-#define TURNO_H_INCLUDED
-
-#include <stdlib.h>
-#include <string.h> // Para usar strcpy
-#include <stdio.h>  // Para usar printf
-
-#define MAX_TRATAMIENTOS 10
-
-typedef struct {
-    int dia;
-    int mes;
-    int anio;
-} Fecha;
-
-typedef struct {
-    int idTurno;
-    char nombre[50];
-    int idCliente;
-    int tratamientos[MAX_TRATAMIENTOS];
-    int cantidadTratamientos;
-    char formaPago[10];
-    float total;
-    Fecha fecha;
-    int realizado;
-} Turno;
-
-void setIdTurno(Turno *turno, int id) {
-    turno->idTurno = id;
-}
-
-void setNombre(Turno *turno, const char *nombre) {
-    strcpy(turno->nombre, nombre);
-}
-
-void setIdCliente(Turno *turno, int idCliente) {
-    turno->idCliente = idCliente;
-}
-/*
-void setTratamientos(Turno *turno, int tratamientos[], int cantidad) {
-    if (cantidad <= MAX_TRATAMIENTOS) {
-        for (int i = 0; i < cantidad; i++) {
-            turno->tratamientos[i] = tratamientos[i];
-        }
-        turno->cantidadTratamientos = cantidad;
-    } else {
-        printf("Error: No se pueden agregar más de %d tratamientos.\n", MAX_TRATAMIENTOS);
-    }
-}
-*/
-void setFormaPago(Turno *turno, const char *formaPago) {
-    strcpy(turno->formaPago, formaPago);
-}
-
-void setTotal(Turno *turno, float total) {
-    turno->total = total;
-}
-
-void setFecha(Turno *turno, Fecha fecha) {
-    turno->fecha = fecha;
-}
-
-void setRealizado(Turno *turno, int realizado) {
-    turno->realizado = realizado;
-}
-
-int getIdTurno(const Turno *turno) {
-    return turno->idTurno;
-}
-
-char* getNombre(const Turno *turno) {
-    char *nombre = (char *)malloc((strlen(turno->nombre) + 1) * sizeof(char));
-    if (nombre != NULL) {
-        strcpy(nombre, turno->nombre);
-    }
-    return nombre;
-}
-
-int getIdCliente(const Turno *turno) {
-    return turno->idCliente;
-}
-
-void getTratamientos(const Turno *turno, int tratamientos[], int *cantidad) {
-    *cantidad = turno->cantidadTratamientos;
-    for (int i = 0; i < *cantidad; i++) {
-        tratamientos[i] = turno->tratamientos[i];
-    }
-}
-
-char* getFormaPago(const Turno *turno) {
-    char *formaPago = (char *)malloc((strlen(turno->formaPago) + 1) * sizeof(char));
-    if (formaPago != NULL) {
-        strcpy(formaPago, turno->formaPago);
-    }
-    return formaPago;
-}
-
-float getTotal(const Turno *turno) {
-    return turno->total;
-}
-
-Fecha getFecha(const Turno *turno) {
-    return turno->fecha;
-}
-
-int getRealizado(const Turno *turno) {
-    return turno->realizado;
-}
-
-
-
-// Función para agregar un tratamiento (por su ID)
-int agregarTratamiento(Turno *t, int tratamientoId) {
-    if (t->cantidadTratamientos < MAX_TRATAMIENTOS && !t->realizado) {
-        t->tratamientos[t->cantidadTratamientos] = tratamientoId;
-        t->cantidadTratamientos++;
-        return 1; // Éxito
-    }
-    return 0; // Fallo
-}
-
-// Función para setear la forma de pago
-int setFormaPago(Turno *t, const char *formaPago) {
-    if (t->realizado) {
-        return 0; // No se puede modificar si ya fue realizado
-    }
-    strncpy(t->formaPago, formaPago, sizeof(t->formaPago) - 1);
-    t->formaPago[sizeof(t->formaPago) - 1] = '\0';
-    return 1; // Éxito
-}
-
-// Función para cambiar el estado de realizado
-void marcarRealizado(Turno *t) {
-    t->realizado = 1; // Cambiar a realizado
-}
-
-// Función para obtener el total a pagar (considerando descuentos si es cliente habitual)
-float calcularTotal(Turno *t, float precios[MAX_TRATAMIENTOS]) {
-    float total = 0.0;
-    for (int i = 0; i < t->cantidadTratamientos; i++) {
-        total += precios[t->tratamientos[i]]; // Sumar el precio del tratamiento
+// Función para registrar un nuevo cliente en la lista
+void registrarCliente(lista_de_clientes *clientes) {
+    if (isfull(*clientes)) {
+        printf("Lista de clientes llena. No se pueden registrar mas clientes.\n");
+        return;
     }
 
-    // Aplicar descuento si es cliente habitual
-    if (t->idCliente > 0) { // Asumimos que ID de cliente > 0 indica que es habitual
-        if (t->idCliente == 1) { // Nivel 1
-            total *= 0.95; // 5% de descuento
-        } else if (t->idCliente == 2) { // Nivel 2
-            total *= 0.90; // 10% de descuento
-        } else if (t->idCliente == 3) { // Nivel 3
-            total *= 0.85; // 15% de descuento
+    Cliente nuevoCliente;
+    char id_cliente[9];
+    char nombre[20];
+    char apellido[20];
+
+    // Solicita y asigna el ID del cliente
+    printf("Ingrese el ID del cliente: ");
+    scanf("%s", id_cliente);
+    set_id_cliente(&nuevoCliente, id_cliente);
+
+    // Solicita y asigna el nombre del cliente
+    printf("Ingrese el nombre del cliente: ");
+    scanf("%s", nombre);
+    set_nombre(&nuevoCliente, nombre);
+
+    // Solicita y asigna el apellido del cliente
+    printf("Ingrese el apellido del cliente: ");
+    scanf("%s", apellido);
+    set_apellido(&nuevoCliente, apellido);
+
+    // Inicializa canttratamientos y nivel
+    initt(&nuevoCliente);  // canttratamientos a 0
+    set_nivel(&nuevoCliente, 0); // nivel a 0
+
+    insertl(clientes, nuevoCliente);
+    printf("Cliente registrado exitosamente.\n");
+}
+
+// Función para buscar un cliente en la lista y mostrar sus datos
+void buscarCliente(lista_de_clientes clientes) {
+    char id_cliente[9];
+    printf("Ingrese el ID del cliente a buscar: ");
+    scanf("%s", id_cliente);
+
+    for (int i = 0; i <= clientes.ultimo; i++) {
+        if (strcmp(clientes.vipd[i].id_cliente, id_cliente) == 0) {
+            printf("Cliente encontrado:\n");
+            printf("ID: %s\n", clientes.vipd[i].id_cliente);
+            printf("Nombre: %s\n", clientes.vipd[i].nombre);
+            printf("Apellido: %s\n", clientes.vipd[i].apellido);
+            printf("Cantidad de tratamientos: %d\n", clientes.vipd[i].canttratamientos);
+            printf("Nivel: %d\n", clientes.vipd[i].nivel);
+            return;
         }
     }
-
-    t->total = total; // Asignar total calculado al turno
-    return total;
+    printf("Cliente no encontrado.\n");
 }
 
-
-// Función para validar la fecha y hora
-int validarFecha(Fecha fecha) {
-    if (fecha.anio < 2024 || fecha.anio > 2024) {
-        return 0; // Año fuera de rango
-    }
-    if (fecha.mes < 11 || fecha.mes > 12) {
-        return 0; // Mes fuera de rango
-    }
-    if (fecha.dia < 1 || fecha.dia > 31) {
-        return 0; // Día fuera de rango
+// Función para eliminar un cliente de la lista
+void eliminarCliente(lista_de_clientes *clientes) {
+    if (isempty(*clientes)) {
+        printf("La lista de clientes está vacia.\n");
+        return;
     }
 
-    // Control de días de la semana (lunes a sábado)
-    // Para simplificar, consideramos el día 1/11/2024 como viernes (cálculo manual o función)
-    int diaSemana = (fecha.dia + (fecha.mes - 11) * 30) % 7; // Cálculo simple, puedes usar una mejor función
+    char id_cliente[9];
+    printf("Ingrese el ID del cliente a eliminar: ");
+    scanf("%s", id_cliente);
 
-    if (diaSemana == 0) {
-        return 0; // Domingo
+    for (int i = 0; i <= clientes->ultimo; i++) {
+        if (strcmp(clientes->vipd[i].id_cliente, id_cliente) == 0) {
+            clientes->cursor = i; // Posiciona el cursor en el cliente encontrado
+            supress(clientes);
+            printf("Cliente eliminado exitosamente.\n");
+            return;
+        }
     }
-
-    // Control de horas (de 9 a 20)
-    if (fecha.hora < 9 || fecha.hora > 20) {
-        return 0; // Hora fuera de rango
-    }
-
-    return 1; // Fecha válida
+    printf("Cliente no encontrado.\n");
 }
 
-#endif // TURNO_H_INCLUDED
+// Función para mostrar todos los clientes registrados
+void mostrarTodosLosClientes(lista_de_clientes clientes) {
+    if (isempty(clientes)) {
+        printf("La lista de clientes está vacia.\n");
+        return;
+    }
+
+    printf("Lista de clientes registrados:\n");
+    for (int i = 0; i <= clientes.ultimo; i++) {
+        printf("ID: %s\n", clientes.vipd[i].id_cliente);
+        printf("Nombre: %s\n", clientes.vipd[i].nombre);
+        printf("Apellido: %s\n", clientes.vipd[i].apellido);
+        printf("Cantidad de tratamientos: %d\n", clientes.vipd[i].canttratamientos);
+        printf("Nivel: %d\n", clientes.vipd[i].nivel);
+        printf("-------------------------\n");
+    }
+}
+
+// Función principal
+int main() {
+    lista_de_clientes clientes;
+    init(&clientes);
+    int opcionPrincipal, opcionTurnos, opcionClientes, opcionReportes;
+
+    do {
+        mostrarMenuPrincipal();
+        opcionPrincipal = obtenerOpcion();
+
+        switch (opcionPrincipal) {
+            case 1:
+                do {
+                    mostrarMenuTurnos();
+                    opcionTurnos = obtenerOpcion();
+                    // Implementar casos para cada opción en Turnos 
+                } while(opcionTurnos != 0);
+                break;
+
+            case 2:
+                do {
+                    mostrarMenuClientes();
+                    opcionClientes = obtenerOpcion();
+                    switch(opcionClientes) {
+                        case 1:
+                            registrarCliente(&clientes);
+                            break;
+                        case 2:
+                            buscarCliente(clientes);
+                            break;
+                        case 3:
+                            eliminarCliente(&clientes);
+                            break;
+                        case 5:
+                            mostrarTodosLosClientes(clientes);
+                            break;
+                        case 0:
+                            printf("Volviendo al menu principal...\n");
+                            break;
+                        default:
+                            printf("Opción inválida. Intente nuevamente.\n");
+                    }
+                    printf("Presione cualquier tecla para continuar...\n");
+                    getch();
+                } while(opcionClientes != 0);
+                break;
+
+            case 3:
+                do {
+                    mostrarMenuReportes();
+                    opcionReportes = obtenerOpcion();
+                    // Implementar casos para cada opción de Reportes 
+                } while(opcionReportes != 0);
+                break;
+
+            case 4:
+                printf("Saliendo del programa...\n");
+                break;
+
+            default:
+                printf("Opción inválida. Intente nuevamente.\n");
+        }
+        printf("Presione cualquier tecla para continuar...\n");
+        getch();
+    } while(opcionPrincipal != 4);
+
+    return 0;
+}

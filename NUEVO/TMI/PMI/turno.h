@@ -24,7 +24,7 @@ typedef struct {
     float total;
     Fecha fecha;
     int realizado;
-}Turno;
+} Turno;
 
 int generarIdTurno() {
     static int contador = 0;
@@ -44,21 +44,42 @@ void setIdCliente(Turno *turno, int idCliente) {
 }
 
 int setTratamiento(Turno *t, int tratamientos[]) {
-    int cantidadTratamientos = 0;
-    for (int i = 0; i < MAX_TRATAMIENTOS;i++){
-        if (tratamientos[i]== 1){
-            t[i]->tratamientos = 1
-        }
+    for (int i = 0; i < MAX_TRATAMIENTOS; i++) {
+        t->tratamientos[i] = tratamientos[i];
     }
     return 0;
 }
 
 void setFormaPago(Turno *turno, const char *formaPago) {
-    strcpy(turno->formaPago, formaPago);
+    if (strcmp(formaPago, "debito") == 0 || strcmp(formaPago, "credito") == 0 ||
+        strcmp(formaPago, "QR") == 0 || strcmp(formaPago, "efectivo") == 0) {
+        strcpy(turno->formaPago, formaPago);
+    }
 }
 
-void setTotal(Turno *turno, float total) {
-    turno->total = total;
+void setTotal(Turno *turno, float total, int nivelCliente) {
+    float descuento = 0.0;
+    float totalFinal = 0.0;
+    // Determinar el porcentaje de descuento seg�n el nivel
+    switch (nivelCliente) {
+        case 0: // Sin descuento
+            descuento = 0.0;
+            break;
+        case 1: // 5% de descuento
+            descuento = total * 0.05;
+            break;
+        case 2: // 10% de descuento
+            descuento = total * 0.10;
+            break;
+        case 3: // 15% de descuento
+            descuento = total * 0.15;
+            break;
+        default: // Si el nivel es incorrecto, no aplica descuento
+            descuento = 0.0;
+            break;
+    }
+    totalFinal = total - descuento;
+    turno->total = totalFinal;
 }
 
 void setFecha(Turno *turno, Fecha fecha) {
@@ -68,63 +89,69 @@ void setFecha(Turno *turno, Fecha fecha) {
 void setRealizado(Turno *turno, int realizado) {
     turno->realizado = realizado;
 }
-
-int getIdTurno(const Turno *turno) {
-    return turno->idTurno;
-}
-
-char* getNombre(const Turno *turno) {
-    char *nombre = (char *)malloc((strlen(turno->nombre) + 1) * sizeof(char));
+char* get_nombre_T(Turno turno) {
+    char *nombre = (char *)malloc((strlen(turno.nombre) + 1) * sizeof(char));
     if (nombre != NULL) {
-        strcpy(nombre, turno->nombre);
+        strcpy(nombre, turno.nombre);
     }
     return nombre;
 }
 
-int getIdCliente(const Turno *turno) {
-    return turno->idCliente;
+int get_idTurno(Turno t) {
+    return t.idTurno;
 }
-/*
-void getTratamientos(const Turno *turno, int tratamientos[], int *cantidad) {
-    *cantidad = turno->cantidadTratamientos;
-    for (int i = 0; i < *cantidad; i++) {
-        tratamientos[i] = turno->tratamientos[i];
+
+int get_idCliente(Turno t) {
+    return t.idCliente;
+}
+
+int* get_tratamientos(Turno t) {
+    int *tratamientos = (int *)malloc(MAX_TRATAMIENTOS * sizeof(int));
+    if (tratamientos != NULL) {
+        for (int i = 0; i < MAX_TRATAMIENTOS; i++) {
+            tratamientos[i] = t.tratamientos[i];
+        }
     }
+    return tratamientos;
 }
-*/
-char* getFormaPago(const Turno *turno) {
-    char *formaPago = (char *)malloc((strlen(turno->formaPago) + 1) * sizeof(char));
+
+char* get_formaPago(Turno t) {
+    char *formaPago = (char *)malloc((strlen(t.formaPago) + 1) * sizeof(char));
     if (formaPago != NULL) {
-        strcpy(formaPago, turno->formaPago);
+        strcpy(formaPago, t.formaPago);
     }
     return formaPago;
 }
 
-float getTotal(const Turno *turno) {
-    return turno->total;
+Fecha get_fecha(Turno t) {
+    return t.fecha;
 }
 
-Fecha getFecha(const Turno *turno) {
-    return turno->fecha;
+int get_realizado(Turno t) {
+    return t.realizado;
 }
 
-int getRealizado(const Turno *turno) {
-    return turno->realizado;
+// Funciones `get` para `Fecha` anidada en `Turno`
+int get_dia(Fecha fecha) {
+    return fecha.dia;
 }
 
-/*
-float calcularTotal(Turno *t, int nivelCliente) {
-    float total = 0.0;
-    for (int i = 0; i < t->cantidadTratamientos; i++) {
-        total += t->tratamientos[i].precio;
-    }
-    if (nivelCliente == 1) total *= 0.95;
-    else if (nivelCliente == 2) total *= 0.90;
-    else if (nivelCliente == 3) total *= 0.85;
-    t->total = total;
-    return total;
+int get_mes(Fecha fecha) {
+    return fecha.mes;
 }
-*/
+
+int get_anio(Fecha fecha) {
+    return fecha.anio;
+}
+
+int get_hora(Fecha fecha) {
+    return fecha.hora;
+}
+float get_total(Turno turno){
+    return turno.total;
+}
+
+
 int validarFecha(Fecha fecha) {
     if (fecha.anio != 2024 || fecha.mes < 11 || fecha.mes > 12 ||
         fecha.dia < 1 || fecha.dia > 31 || fecha.hora < 9 || fecha.hora > 20) {
