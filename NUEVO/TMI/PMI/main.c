@@ -1,7 +1,7 @@
 #include <stdio.h> //Permite el uso de funciones de entrada y salida, como printf y scanf
 #include <stdlib.h> //Proporciona funciones como system, usada para limpiar la pantalla.
 #include <windows.h>
-#include <conio.h> //Facilita el manejo de caracteres en consola y la funci√≥n getch(), usada para pausar la ejecuci√≥n hasta que el usuario presione una tecla.
+#include <conio.h> //Facilita el manejo de caracteres en consola y la funciÛn getch(), usada para pausar la ejecuciÛn hasta que el usuario presione una tecla.
 #include <string.h>
 
 #include "turno.h"
@@ -248,7 +248,6 @@ void registrarTurno(lista_de_turno *turnos, lista_de_clientes clientes)
         break;
     }
 
-
     int formaPago;
     do
     {
@@ -258,28 +257,30 @@ void registrarTurno(lista_de_turno *turnos, lista_de_clientes clientes)
         printf("3. Efectivo\n");
         printf("4. QR\n");
         printf("Ingrese su eleccion: ");
-        scanf("%d", &formaPago);
+        scanf("%d",&formaPago);
 
+/*
         switch (formaPago)
         {
         case 1:
-            setFormaPago(&nuevoTurno, "debito");
+            setFormaPago(&nuevoTurno, 1);
             break;
         case 2:
-            setFormaPago(&nuevoTurno, "credito");
+            setFormaPago(&nuevoTurno, 2);
             break;
         case 3:
-            setFormaPago(&nuevoTurno, "efectivo");
+            setFormaPago(&nuevoTurno, 3);
             break;
         case 4:
-            setFormaPago(&nuevoTurno, "QR");
+            setFormaPago(&nuevoTurno, 4);
             break;
-        default:
+       default:
             printf("Opcion invalida. Intente nuevamente.\n");
             formaPago = 0;
-        }
-    }
-    while (formaPago == 0);
+
+        }*/
+    }while (formaPago < 0 || formaPago > 4);
+        setFormaPago(&nuevoTurno,formaPago);
 
     setRealizado(&nuevoTurno, 0);
 
@@ -291,7 +292,7 @@ void mostrar_turno(Turno t) {
     int idTurno = get_idTurno(t);
     int idCliente = get_idCliente(t);
     int *tratamientos = get_tratamientos(t);
-    char *formaPago = get_formaPago(t);
+    const char *formaPago = get_formaPago(t);
     float total = get_total(t);
     Fecha fecha = get_fecha(t);
     int realizado = get_realizado(t);
@@ -308,15 +309,14 @@ void mostrar_turno(Turno t) {
     printf("\nForma de Pago: %s\n", formaPago);
     printf("Total: %.2f\n", total);
     printf("Fecha: %02d/%02d/%d Hora: %02d:00\n", get_dia(fecha), get_mes(fecha), get_anio(fecha), get_hora(fecha));
-    printf("Realizado: %s\n", realizado ? "S√≠" : "No");
+    printf("Realizado: %s\n", realizado ? "SÌ" : "No");
 
     // Liberar la memoria reservada
     free(nombre);
     free(tratamientos);
-    free(formaPago);
 }
 
-// Funci√≥n para registrar un nuevo cliente en la lista
+// FunciÛn para registrar un nuevo cliente en la lista
 void registrarCliente(lista_de_clientes *clientes)
 {
     if (isfull(*clientes))
@@ -353,7 +353,7 @@ void registrarCliente(lista_de_clientes *clientes)
     printf("Cliente registrado exitosamente.\n");
 }
 
-// Funci√≥n para buscar un cliente en la lista y mostrar sus datos
+// FunciÛn para buscar un cliente en la lista y mostrar sus datos
 void buscarCliente(lista_de_clientes clientes)
 {
     char id_cliente[9];
@@ -376,12 +376,12 @@ void buscarCliente(lista_de_clientes clientes)
     printf("Cliente no encontrado.\n");
 }
 
-// Funci√≥n para eliminar un cliente de la lista
+// FunciÛn para eliminar un cliente de la lista
 void eliminarCliente(lista_de_clientes *clientes)
 {
     if (isempty(*clientes))
     {
-        printf("La lista de clientes est√° vacia.\n");
+        printf("La lista de clientes est· vacia.\n");
         return;
     }
 
@@ -402,7 +402,7 @@ void eliminarCliente(lista_de_clientes *clientes)
     printf("Cliente no encontrado.\n");
 }
 
-// Funci√≥n para mostrar todos los clientes registrados
+// FunciÛn para mostrar todos los clientes registrados
 void mostrarTodosLosClientes(lista_de_clientes clientes)
 {
 void buscarTurnoPorCliente(lista_de_turno *lista, int idCliente) {
@@ -454,7 +454,7 @@ void modificarTratamientos(lista_de_turno *lista, int idTurno, int nuevosTratami
     printf("Turno con ID %d no encontrado.\n", idTurno);
 }
 
-void modificarFormaPago(lista_de_turno *lista, int idTurno, const char *nuevaFormaPago) {
+void modificarFormaPago(lista_de_turno *lista, int idTurno, int nuevaFormaPago) {
     resetL_turno(lista);
     while (!is_Oos_turno(*lista)) {
         Turno *turno = &lista->cur->vipd;
@@ -498,7 +498,7 @@ void confirmarAsistenciaTurno(lista_de_turno *lista, int idTurno) {
 
     if (isempty(clientes))
     {
-        printf("La lista de clientes est√° vacia.\n");
+        printf("La lista de clientes est· vacia.\n");
         return;
     }
 
@@ -614,7 +614,7 @@ int main()
                     printf("Volviendo al menu principal...\n");
                     break;
                 default:
-                    printf("Opci√≥n inv√°lida. Intente nuevamente.\n");
+                    printf("OpciÛn inv·lida. Intente nuevamente.\n");
                 }
                 printf("Presione cualquier tecla para continuar...\n");
                 getch();

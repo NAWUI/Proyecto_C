@@ -15,19 +15,23 @@
 	<string.h>
 	<stdio.h>
 
-1730238991 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\main.c
+1730418639 source:c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\main.c
 	<stdio.h>
+	<stdlib.h>
 	<windows.h>
 	<conio.h>
+	<string.h>
 	"turno.h"
+	"cliente.h"
 	"listaD _Turno.h"
+	"listaE_Cliente.h"
 
-1730238920 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\turno.h
+1730418007 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\turno.h
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
 
-1730238629 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\listad _turno.h
+1730408983 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\listad _turno.h
 	<stdlib.h>
 	<stdio.h>
 	"turno.h"
@@ -41,5 +45,11 @@
 	"turno.h"
 
 1730312100 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listae_cliente.h
+	"cliente.h"
+
+1730408983 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\cliente.h
+	<string.h>
+
+1730408983 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\listae_cliente.h
 	"cliente.h"
 

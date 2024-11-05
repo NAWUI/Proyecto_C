@@ -20,7 +20,7 @@ typedef struct {
     char nombre[MAX_NOMBRE];
     int idCliente;
     int tratamientos[MAX_TRATAMIENTOS];
-    char formaPago[10];
+    int formaPago;
     float total;
     Fecha fecha;
     int realizado;
@@ -50,11 +50,10 @@ int setTratamiento(Turno *t, int tratamientos[]) {
     return 0;
 }
 
-void setFormaPago(Turno *turno, const char *formaPago) {
-    if (strcmp(formaPago, "debito") == 0 || strcmp(formaPago, "credito") == 0 ||
-        strcmp(formaPago, "QR") == 0 || strcmp(formaPago, "efectivo") == 0) {
-        strcpy(turno->formaPago, formaPago);
-    }
+void setFormaPago(Turno *turno, int formapago){
+        printf("%d", formapago);
+        turno->formaPago = formapago;
+
 }
 
 void setTotal(Turno *turno, float total, int nivelCliente) {
@@ -115,13 +114,16 @@ int* get_tratamientos(Turno t) {
     return tratamientos;
 }
 
-char* get_formaPago(Turno t) {
-    char *formaPago = (char *)malloc((strlen(t.formaPago) + 1) * sizeof(char));
-    if (formaPago != NULL) {
-        strcpy(formaPago, t.formaPago);
+const char* get_formaPago(Turno t) {
+    switch(t.formaPago) {
+        case 1: return "Debito";
+        case 2: return "Credito";
+        case 3: return "Efectivo";
+        case 4: return "QR";
+        default: return "Desconocido";
     }
-    return formaPago;
 }
+
 
 Fecha get_fecha(Turno t) {
     return t.fecha;
