@@ -527,9 +527,11 @@ void mostrarTurnosNoRealizados(lista_de_turno *lista) {
 // Funcion principal
 int main()
 {
+    Turno miturno;
     lista_de_turno turno;
     lista_de_clientes clientes;
     init_cliente(&clientes);
+    init_turno(&turno);
     // tratamientosDatos tratamientos_D[10];
 
     int opcionPrincipal, opcionTurnos, opcionClientes, opcionReportes;
@@ -554,6 +556,7 @@ int main()
                     break;
                 case 2:
                     printf("Buscar turno por cliente.\n");
+                    mostrar_turno(miturno);
                     break;
                 case 3:
                     printf("Mostrar todos los turnos de un mes.\n");

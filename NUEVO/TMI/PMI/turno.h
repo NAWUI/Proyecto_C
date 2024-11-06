@@ -56,7 +56,7 @@ void setFormaPago(Turno *turno, int formapago){
 
 }
 
-void setTotal(Turno *turno, float total, int nivelCliente) {
+void setTotal(Turno *t, float total, int nivelCliente) {
     float descuento = 0.0;
     float totalFinal = 0.0;
     // Determinar el porcentaje de descuento seg�n el nivel
@@ -78,20 +78,20 @@ void setTotal(Turno *turno, float total, int nivelCliente) {
             break;
     }
     totalFinal = total - descuento;
-    turno->total = totalFinal;
+    t->total = totalFinal;
 }
 
-void setFecha(Turno *turno, Fecha fecha) {
-    turno->fecha = fecha;
+void setFecha(Turno *t, Fecha fecha) {
+    t->fecha = fecha;
 }
 
-void setRealizado(Turno *turno, int realizado) {
-    turno->realizado = realizado;
+void setRealizado(Turno *t, int realizado) {
+    t->realizado = realizado;
 }
-char* get_nombre_T(Turno turno) {
-    char *nombre = (char *)malloc((strlen(turno.nombre) + 1) * sizeof(char));
+char* get_nombre_T(Turno t) {
+    char *nombre = (char *)malloc((strlen(t.nombre) + 1) * sizeof(char));
     if (nombre != NULL) {
-        strcpy(nombre, turno.nombre);
+        strcpy(nombre, t.nombre);
     }
     return nombre;
 }
