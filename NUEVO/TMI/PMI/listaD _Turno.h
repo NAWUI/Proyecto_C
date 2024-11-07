@@ -96,13 +96,4 @@ void suppress_turno(lista_de_turno *l)
         }
 
     }
-/*
-void imprimir(Lista l){
-    Nodo *actual =l.acc;
-    while(actual != NULL){
-        printf("nuevo\n");
-        actual = actual->next;
-    }
-}
-*/
 

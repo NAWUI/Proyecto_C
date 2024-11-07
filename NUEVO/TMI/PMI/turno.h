@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define MAX_TRATAMIENTOS 10
-#define MAX_NOMBRE 50
+#define MAX_NOMBRE 20
 
 typedef struct {
     int dia;
@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
     int idTurno;
     char nombre[MAX_NOMBRE];
-    int idCliente;
+    char idCliente[9];
     int tratamientos[MAX_TRATAMIENTOS];
     int formaPago;
     float total;
@@ -39,8 +39,8 @@ void setNombre(Turno *turno, const char *nombre) {
     strcpy(turno->nombre, nombre);
 }
 
-void setIdCliente(Turno *turno, int idCliente) {
-    turno->idCliente = idCliente;
+void setIdCliente(Turno *turno, char *idCliente) {
+    strcpy(turno->idCliente, idCliente);
 }
 
 int setTratamiento(Turno *t, int tratamientos[]) {
@@ -51,7 +51,6 @@ int setTratamiento(Turno *t, int tratamientos[]) {
 }
 
 void setFormaPago(Turno *turno, int formapago){
-        printf("%d", formapago);
         turno->formaPago = formapago;
 
 }
@@ -100,9 +99,14 @@ int get_idTurno(Turno t) {
     return t.idTurno;
 }
 
-int get_idCliente(Turno t) {
-    return t.idCliente;
+char* get_idCliente(Turno t) {
+    char *idcliente = (char *)malloc((strlen(t.idCliente) + 1) * sizeof(char));
+    if (idcliente != NULL) {
+        strcpy(idcliente, t.idCliente);
+    }
+    return idcliente;
 }
+
 
 int* get_tratamientos(Turno t) {
     int *tratamientos = (int *)malloc(MAX_TRATAMIENTOS * sizeof(int));
@@ -167,5 +171,6 @@ int validarFecha(Fecha fecha) {
 void marcarRealizado(Turno *t) {
     t->realizado = 1;
 }
+
 
 #endif // TURNO_H_INCLUDED

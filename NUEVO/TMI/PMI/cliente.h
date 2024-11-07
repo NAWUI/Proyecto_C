@@ -24,11 +24,11 @@ char* get_id_cliente (Cliente c) {
     }
 }
 
-void set_nombre (Cliente *c, char nom []){
+void set_nombre_cliente (Cliente *c, char nom []){
     strcpy ((*c).nombre,nom);
 }
 
-char* get_nombre (Cliente c) {
+char* get_nombre_cliente (Cliente c) {
     char *p;
     p = (char *)malloc(strlen (c.nombre) + 1);
     if (p == NULL) exit (1);
@@ -38,23 +38,33 @@ char* get_nombre (Cliente c) {
     }
 }
 
-void set_apellido (Cliente *c, char apell []){
+void set_apellido_cliente (Cliente *c, char apell []){
     strcpy ((*c).apellido,apell);
 }
 
-void set_canttratamientos (Cliente *c, int cantt){
+char* get_apellido_cliente (Cliente c) {
+    char *p;
+    p = (char *)malloc(strlen (c.nombre) + 1);
+    if (p == NULL) exit (1);
+    else {
+        strcpy (p, c.apellido);
+        return p;
+    }
+}
+
+void set_canttratamientos_cliente (Cliente *c, int cantt){
     (*c).canttratamientos += cantt;
 }
 
-int get_canttratamientos (Cliente c) {
+int get_canttratamientos_cliente (Cliente c) {
     return c.canttratamientos;
 }
 
-void initt (Cliente *c){
-    (*c).canttratamientos = 0;
+void inittratamientos_cliente (Cliente *c){
+    (*c).canttratamientos = 11;
 }
 
-void set_nivel (Cliente *c, int nuevostr ){
+void set_nivel_cliente (Cliente *c, int nuevostr ){
     (*c).canttratamientos += nuevostr;
 
     if ((*c).canttratamientos == 0) {
@@ -68,8 +78,8 @@ void set_nivel (Cliente *c, int nuevostr ){
     }
 }
 
-int get_nivel (Cliente c) {
-    return c.canttratamientos;
+int get_nivel_cliente (Cliente c) {
+    return c.nivel;
 }
 
 #endif // CLIENTE_H_INCLUDED
