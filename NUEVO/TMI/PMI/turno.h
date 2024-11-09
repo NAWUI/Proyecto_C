@@ -58,7 +58,7 @@ void setFormaPago(Turno *turno, int formapago){
 void setTotal(Turno *t, float total, int nivelCliente) {
     float descuento = 0.0;
     float totalFinal = 0.0;
-    // Determinar el porcentaje de descuento seg�n el nivel
+    // Determinar el porcentaje de descuento seg n el nivel
     switch (nivelCliente) {
         case 0: // Sin descuento
             descuento = 0.0;

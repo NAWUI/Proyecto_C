@@ -1,16 +1,17 @@
 # depslib dependency file v1.0
-1731004459 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\main.c
+1731093039 source:c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
 	<conio.h>
 	<string.h>
+	<ctype.h>
 	"turno.h"
 	"cliente.h"
 	"listaD _Turno.h"
 	"listaE_Cliente.h"
 
-1731004338 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\turno.h
+1731083673 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\turno.h
 	<stdlib.h>
 	<string.h>
 	<stdio.h>
@@ -36,15 +37,15 @@
 	<stdio.h>
 	"turno.h"
 
-1731002061 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\cliente.h
+1731091494 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\cliente.h
 	<string.h>
 
-1730947865 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listad _turno.h
+1731083673 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listad _turno.h
 	<stdlib.h>
 	<stdio.h>
 	"turno.h"
 
-1731001540 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listae_cliente.h
+1731083673 c:\users\nahue\onedrive\escritorio\proyecto_de_c\proyecto_c-1\nuevo\tmi\pmi\listae_cliente.h
 	"cliente.h"
 
 1730408983 c:\users\nahue\onedrive\escritorio\proyecto_c\nuevo\tmi\pmi\cliente.h

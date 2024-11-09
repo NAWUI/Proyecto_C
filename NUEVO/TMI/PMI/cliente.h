@@ -61,7 +61,7 @@ int get_canttratamientos_cliente (Cliente c) {
 }
 
 void inittratamientos_cliente (Cliente *c){
-    (*c).canttratamientos = 11;
+    (*c).canttratamientos = 0;
 }
 
 void set_nivel_cliente (Cliente *c, int nuevostr ){

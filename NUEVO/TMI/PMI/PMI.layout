@@ -2,43 +2,55 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="listaE_Cliente.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="13048" topLine="346" />
-		</Cursor>
-		<Folding>
-			<Collapse line="262" />
-			<Collapse line="299" />
-			<Collapse line="335" />
-			<Collapse line="354" />
-			<Collapse line="404" />
-			<Collapse line="421" />
-			<Collapse line="435" />
-			<Collapse line="442" />
-			<Collapse line="447" />
-			<Collapse line="478" />
-			<Collapse line="483" />
-			<Collapse line="490" />
-		</Folding>
-	</File>
-	<File name="listaD _Turno.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1909" topLine="53" />
+			<Cursor1 position="386" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="turno.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="8" />
+			<Cursor1 position="3267" topLine="130" />
 		</Cursor>
 	</File>
-	<File name="listaE_Cliente.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="listaD _Turno.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="12" />
+			<Cursor1 position="0" topLine="37" />
 		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="40519" topLine="340" />
+		</Cursor>
+		<Folding>
+			<Collapse line="13" />
+			<Collapse line="143" />
+			<Collapse line="334" />
+			<Collapse line="358" />
+			<Collapse line="366" />
+			<Collapse line="397" />
+			<Collapse line="481" />
+			<Collapse line="506" />
+			<Collapse line="515" />
+			<Collapse line="561" />
+			<Collapse line="604" />
+			<Collapse line="628" />
+			<Collapse line="703" />
+			<Collapse line="751" />
+			<Collapse line="791" />
+			<Collapse line="826" />
+			<Collapse line="882" />
+			<Collapse line="894" />
+			<Collapse line="909" />
+			<Collapse line="1086" />
+			<Collapse line="1120" />
+			<Collapse line="1181" />
+			<Collapse line="1220" />
+			<Collapse line="1248" />
+		</Folding>
 	</File>
 	<File name="cliente.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="334" topLine="0" />
+			<Cursor1 position="0" topLine="21" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
