@@ -43,7 +43,7 @@ Cliente coppy_cliente(lista_de_clientes l) {
 void insert_cliente(lista_de_clientes *l, Cliente c) {
     for (int i = (*l).ultimo; i >= (*l).cursor; i--) {
         (*l).vipd[i + 1] = (*l).vipd[i];
-    }00000
+    }
     (*l).vipd[(*l).cursor] = c;
     (*l).ultimo++;
 }

@@ -608,7 +608,7 @@ void modificarFormaPago(lista_de_turno *turnos, char *idCliente, int nuevaFormaP
             printf("--------------------\n");
             printf("Forma de pago actualizada para el cliente %s:\n", t.idCliente);
             printf("--------------------\n");
-            printf("ID Turno: %d\n Nombre: %s\ Nueva Forma de Pago: %s\n", t.idTurno, t.nombre, get_formaPago(t));
+            printf("ID Turno: %d\n Nombre: %s Nueva Forma de Pago: %s\n", t.idTurno, t.nombre, get_formaPago(t));
             printf("--------------------\n");
             return;
         }
