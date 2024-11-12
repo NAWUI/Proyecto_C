@@ -1,0 +1,16 @@
+ID Turno: 1
+Nombre: nahuel
+ID Cliente: 46355603
+Tratamientos: 1 1 1 
+Forma de Pago: Debito
+Total: 60000.00
+Fecha: 01/12/2024 09:00
+---------------------------------------
+ID Turno: 2
+Nombre: nahueluno
+ID Cliente: 46355604
+Tratamientos: 1 1 1 
+Forma de Pago: Debito
+Total: 28000.00
+Fecha: 01/11/2024 09:00
+---------------------------------------

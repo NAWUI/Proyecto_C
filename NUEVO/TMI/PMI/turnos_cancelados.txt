@@ -1,0 +1,9 @@
+ID Turno: 4
+Nombre: nahuel
+ID Cliente: 46355606
+Tratamientos: 1 1 
+Forma de Pago: Debito
+Total: 51000.00
+Fecha: 01/12/2024 11:00
+Realizado: 0
+---------------------------------------

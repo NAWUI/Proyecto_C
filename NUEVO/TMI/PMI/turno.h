@@ -6,8 +6,8 @@
 #include <stdio.h>
 
 #define MAX_TRATAMIENTOS 10
-#define MAX_NOMBRE 20
-
+#define MAX_NOMBRE 41
+#define MAX_IDCLIENTE 9
 typedef struct {
     int dia;
     int mes;
@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
     int idTurno;
     char nombre[MAX_NOMBRE];
-    char idCliente[9];
+    char idCliente[MAX_IDCLIENTE];
     int tratamientos[MAX_TRATAMIENTOS];
     int formaPago;
     float total;
@@ -43,11 +43,10 @@ void setIdCliente(Turno *turno, char *idCliente) {
     strcpy(turno->idCliente, idCliente);
 }
 
-int setTratamiento(Turno *t, int tratamientos[]) {
+void setTratamiento(Turno *t, int tratamientos[]) {
     for (int i = 0; i < MAX_TRATAMIENTOS; i++) {
         t->tratamientos[i] = tratamientos[i];
     }
-    return 0;
 }
 
 void setFormaPago(Turno *turno, int formapago){
@@ -58,7 +57,7 @@ void setFormaPago(Turno *turno, int formapago){
 void setTotal(Turno *t, float total, int nivelCliente) {
     float descuento = 0.0;
     float totalFinal = 0.0;
-    // Determinar el porcentaje de descuento seg�n el nivel
+    // Determinar el porcentaje de descuento seg n el nivel
     switch (nivelCliente) {
         case 0: // Sin descuento
             descuento = 0.0;
@@ -88,7 +87,7 @@ void setRealizado(Turno *t, int realizado) {
     t->realizado = realizado;
 }
 char* get_nombre_T(Turno t) {
-    char *nombre = (char *)malloc((strlen(t.nombre) + 1) * sizeof(char));
+    char *nombre = (char *)malloc(MAX_NOMBRE * sizeof(char));
     if (nombre != NULL) {
         strcpy(nombre, t.nombre);
     }
@@ -100,7 +99,7 @@ int get_idTurno(Turno t) {
 }
 
 char* get_idCliente(Turno t) {
-    char *idcliente = (char *)malloc((strlen(t.idCliente) + 1) * sizeof(char));
+    char *idcliente = (char *)malloc(MAX_IDCLIENTE * sizeof(char));
     if (idcliente != NULL) {
         strcpy(idcliente, t.idCliente);
     }

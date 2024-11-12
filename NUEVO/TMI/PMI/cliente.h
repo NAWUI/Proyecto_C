@@ -1,11 +1,12 @@
 #ifndef CLIENTE_H_INCLUDED
 #define CLIENTE_H_INCLUDED
 #include <string.h>
-
+#define MAX_CHAR 41
+#define MAX_IDCLIENTE 9
 typedef struct {
-    char id_cliente [9];
-    char nombre [20];
-    char apellido [20];
+    char id_cliente [MAX_IDCLIENTE];
+    char nombre [MAX_CHAR];
+    char apellido [MAX_CHAR];
     int canttratamientos;
     int nivel;
 }Cliente;
@@ -16,7 +17,7 @@ void set_id_cliente (Cliente *c, char id []){
 
 char* get_id_cliente (Cliente c) {
     char *p;
-    p = (char *)malloc(strlen (c.id_cliente) + 1);
+    p = (char *)malloc(sizeof(char) * MAX_IDCLIENTE);
     if (p == NULL) exit (1);
     else {
         strcpy (p, c.id_cliente);
@@ -30,7 +31,7 @@ void set_nombre_cliente (Cliente *c, char nom []){
 
 char* get_nombre_cliente (Cliente c) {
     char *p;
-    p = (char *)malloc(strlen (c.nombre) + 1);
+    p = (char *)malloc(sizeof(char) * MAX_CHAR);
     if (p == NULL) exit (1);
     else {
         strcpy (p, c.nombre);
@@ -44,7 +45,7 @@ void set_apellido_cliente (Cliente *c, char apell []){
 
 char* get_apellido_cliente (Cliente c) {
     char *p;
-    p = (char *)malloc(strlen (c.nombre) + 1);
+    p = (char *)malloc(sizeof(char) * MAX_CHAR);
     if (p == NULL) exit (1);
     else {
         strcpy (p, c.apellido);
@@ -61,17 +62,17 @@ int get_canttratamientos_cliente (Cliente c) {
 }
 
 void inittratamientos_cliente (Cliente *c){
-    (*c).canttratamientos = 11;
+    (*c).canttratamientos = 0;
 }
 
 void set_nivel_cliente (Cliente *c, int nuevostr ){
-    (*c).canttratamientos += nuevostr;
+    (*c).canttratamientos = nuevostr;
 
     if ((*c).canttratamientos == 0) {
         (*c).nivel = 0;
     } else if ((*c).canttratamientos >= 1 && (*c).canttratamientos <= 4) {
         (*c).nivel = 1;
-    } else if ((*c).canttratamientos >= 5 && (*c).canttratamientos <= 10) {
+    } else if ((*c).canttratamientos >= 5 && (*c).canttratamientos < 10) {
         (*c).nivel = 2;
     } else {
         (*c).nivel = 3;

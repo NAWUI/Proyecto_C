@@ -96,4 +96,3 @@ void suppress_turno(lista_de_turno *l)
         }
 
     }
-
