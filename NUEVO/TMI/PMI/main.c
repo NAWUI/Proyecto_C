@@ -375,16 +375,22 @@ void mostrarTurnosDeMes(lista_de_turno *turnos, int mes)
 void buscarYMostrarTurnosPorCliente(lista_de_turno *turnos, const char *nombreCliente)
 {
     resetL_turno(turnos);  // Inicializa el cursor de la lista
-    Turno turnos_cliente[MAX_TURNOS];  // Suponiendo un n�mero m�ximo de turnos a almacenar
     int contador = 0;
 
     // Buscar los turnos que coinciden con el nombre del cliente
-    while (!is_Oos_turno(*turnos))
+    while (!is_Oos_turno(turnos))
     {
-        Turno turno_actual = copy_turno(turnos);
+        Turno turno_actual = copy_turno(turnos);  // Obtener el turno actual
+
         if (strcmp(get_nombre_T(turno_actual), nombreCliente) == 0)
         {
-            turnos_cliente[contador++] = turno_actual;
+            // Si coincide el nombre del cliente, mostrar el turno
+            printf("ID Turno: %d, Cliente: %s, Fecha: %02d/%02d/%d %d:00, Total: %.2f, Realizado: %s\n",
+                   turno_actual.idTurno, turno_actual.nombre, turno_actual.fecha.dia,
+                   turno_actual.fecha.mes, turno_actual.fecha.anio, turno_actual.fecha.hora,
+                   turno_actual.total, turno_actual.realizado == 1 ? "Sí" : "No");
+
+            contador++;
         }
         forwards_turno(turnos);  // Mueve al siguiente turno
     }
@@ -396,7 +402,7 @@ void buscarYMostrarTurnosPorCliente(lista_de_turno *turnos, const char *nombreCl
         return;
     }
 
-    // Paginaci�n: mostrar los turnos de 3 en 3
+    // Paginación: mostrar los turnos de 3 en 3
     int pagina = 1;
     int turnosPorPagina = 3;
     int totalPaginas = (contador + turnosPorPagina - 1) / turnosPorPagina;  // Redondeo hacia arriba
@@ -406,21 +412,31 @@ void buscarYMostrarTurnosPorCliente(lista_de_turno *turnos, const char *nombreCl
         int inicio = (pagina - 1) * turnosPorPagina;
         int fin = (pagina * turnosPorPagina < contador) ? pagina * turnosPorPagina : contador;
 
-        printf("\nP�gina %d de %d:\n", pagina, totalPaginas);
+        printf("\nPágina %d de %d:\n", pagina, totalPaginas);
 
-        // Mostrar los turnos de la p�gina actual
-        for (int i = inicio; i < fin; i++)
+        // Mostrar los turnos de la página actual
+        resetL_turno(turnos);  // Restablecer el cursor de la lista
+        for (int i = 0; i < inicio; i++)  // Avanzar hasta el turno de inicio
         {
-            Turno t = turnos_cliente[i];
-            printf("ID Turno: %d, Cliente: %s, Fecha: %02d/%02d/%d %d:00, Total: %.2f, Realizado: %s\n",
-                   t.idTurno, t.nombre, t.fecha.dia, t.fecha.mes, t.fecha.anio, t.fecha.hora,
-                   t.total, t.realizado == 1 ? "S�" : "No");
+            forwards_turno(turnos);
         }
 
-        // Preguntar si el usuario quiere ver la siguiente p�gina
+        for (int i = inicio; i < fin; i++)
+        {
+            Turno turno_actual = copy_turno(turnos);  // Obtener el turno actual
+
+            printf("ID Turno: %d, Cliente: %s, Fecha: %02d/%02d/%d %d:00, Total: %.2f, Realizado: %s\n",
+                   turno_actual.idTurno, turno_actual.nombre, turno_actual.fecha.dia,
+                   turno_actual.fecha.mes, turno_actual.fecha.anio, turno_actual.fecha.hora,
+                   turno_actual.total, turno_actual.realizado == 1 ? "Sí" : "No");
+
+            forwards_turno(turnos);  // Mueve al siguiente turno
+        }
+
+        // Preguntar si el usuario quiere ver la siguiente página
         if (pagina < totalPaginas)
         {
-            printf("\n�Desea ver la siguiente p�gina? (s/n): ");
+            printf("\n¿Desea ver la siguiente página? (s/n): ");
             char opcion;
             scanf(" %c", &opcion);
             if (opcion == 's' || opcion == 'S')
@@ -460,6 +476,13 @@ void mostrarTodosLosTurnos(lista_de_turno *turnos)
                t.idTurno, t.nombre, t.fecha.dia, t.fecha.mes, t.fecha.anio, t.fecha.hora,
                t.total, t.realizado == 1 ? "Sí" : "No");
         forwards_turno(turnos);  // Avanzamos al siguiente turno
+    }
+}
+// Función para mostrar los tratamientos disponibles
+void mostrarTratamientos() {
+    printf("Tratamientos disponibles:\n");
+    for (int i = 0; i < MAX_TRATAMIENTOS; i++) {
+        printf("%d. %s - $%.2f\n", i + 1, tratamientos_D[i].nombre_T, tratamientos_D[i].precio_T);
     }
 }
 // Función para seleccionar los tratamientos para el turno
@@ -798,35 +821,6 @@ void modificarTurnoConfirmado(lista_de_turno *lt, lista_de_clientes *lc, char *i
         printf("No se encontró un turno para el cliente con ID: %s.\n", id_cliente);
     }
 }
-// Función para mostrar los turnos no realizados
-void mostrarTurnosNoRealizados(lista_de_turno lt)
-{
-    int encontrados = 0;
-
-    // Recorrer la lista de turnos
-    for (int i = 0; i <= lt.ultimo; i++)
-    {
-        Turno t = lt.vipd[i];
-
-        // Verificar si el turno no ha sido realizado
-        if (t.realizado == 0)
-        {
-            printf("ID Turno: %d\n", t.idTurno);
-            printf("Cliente: %s %s\n", t.nombre, t.apellido);
-            printf("Fecha: %02d/%02d/%d %02d:00\n", t.fecha.dia, t.fecha.mes, t.fecha.anio, t.fecha.hora);
-            printf("Total: %.2f\n", t.total);
-            printf("Forma de Pago: %s\n", get_formaPago(t));
-            printf("\n");
-            encontrados++;
-        }
-    }
-
-    // Si no se encontraron turnos no realizados
-    if (encontrados == 0)
-    {
-        printf("No hay turnos no realizados.\n");
-    }
-}
 /*
 // Función para eliminar un cliente según su id_cliente
 void eliminarClientePorId(lista_de_clientes *l, char *id_cliente) {
@@ -1000,8 +994,8 @@ void eliminarCliente(lista_de_clientes *clientes)
 }
 
 
-/*//Funcion para confirmar asistencia a un turno
-void confirmarAsistenciaTurno(lista_de_turno *listaTurnos, int idTurno) {
+//Funcion para confirmar asistencia a un turno
+void confirmarAsistenciaTurno(lista_de_turno *listaTurnos, int idcliente) {
     // Verificar si la lista de turnos est� vac�a
     if (is_emptys_turno(listaTurnos)) {
         printf("La lista de turnos est� vac�a.\n");
@@ -1014,16 +1008,16 @@ void confirmarAsistenciaTurno(lista_de_turno *listaTurnos, int idTurno) {
         Turno turno = copy_turno(listaTurnos); // Obtiene el turno actual
 
         // Si encontramos el turno con el id correspondiente
-        if (get_idTurno(turno) == idTurno) {
+        if (get_idCliente(turno) == idcliente) {
             marcarRealizado(&turno); // Marca el turno como realizado
 
             // Actualiza el turno modificado en la lista (reemplaza el valor en la posici�n actual)
             insertL_turno(listaTurnos, turno);
 
-            printf("Asistencia confirmada para el turno ID %d.\n", idTurno);
+            printf("Asistencia confirmada para el cliente ID %d.\n", idcliente);
 
             // Mostrar detalles del turno actualizado:
-            printf("ID: %d\n", get_idTurno(turno)); // Mostrar el ID del turno
+            printf("ID: %d\n", get_idCliente(turno)); // Mostrar el ID del turno
             printf("Nombre del Cliente: %s\n", get_nombre(cliente)); // Mostrar el nombre del cliente (ajustar seg�n tu implementaci�n)
             printf("Fecha: %s\n", get_fechaTurno(turno)); // Mostrar la fecha del turno (ajustar seg�n tu implementaci�n)
             printf("-------------------------\n");
@@ -1035,7 +1029,7 @@ void confirmarAsistenciaTurno(lista_de_turno *listaTurnos, int idTurno) {
     }
 
     printf("Turno con ID %d no encontrado.\n", idTurno); // Si no se encuentra el turno
-}*/
+}
 
 //Funcion para mostrar los turnos que no han sido realizados
 void mostrarTurnosNoRealizados(lista_de_turno *lista)
@@ -1138,37 +1132,47 @@ int main()
 
                     // Modificar los tratamientos del cliente
                     modificarTratamientos(&turnos, clienteid, tratamientosSeleccionados);
-
-                    // Mostrar los turnos después de modificar
-                    printf("\nTurnos después de modificar:\n");
-                    resetL_turno(&turnos);
-                    while (!is_Oos_turno(turnos))
-                    {
-                        Turno turno = copy_turno(&turnos);
-                        printf("ID Cliente: %s, Nombre: %s %s, Tratamientos: ",
-                               turno.id_cliente, turno.nombre, turno.apellido);
-                        for (int i = 0; i < 3; i++)
-                        {
-                            if (turno.tratamientos[i] != 0)
-                            {
-                                printf("%s ", tratamientos_D[turno.tratamientos[i] - 1].nombre_T);
-                            }
-                        }
-                        printf(", Total: %.2f\n", turno.total);
-                        forwards_turno(&turnos);
-                    }
                     break;
                 case 6:
                     printf("Modificar forma de pago.\n");
+                    printf("\nIngrese el ID del cliente para cambiar tratamientos: ");
+                    scanf("%s", clienteid);  // Leemos el ID del cliente
+
+                    printf("Seleccione la forma de pago para el cliente con ID %s:\n", clienteid);
+                    printf("1. Débito\n");
+                    printf("2. Crédito\n");
+                    printf("3. Efectivo\n");
+                    printf("4. QR\n");
+                    do
+                    {
+                        printf("Ingrese su elección (1-4): ");
+                        scanf("%d", &formaPago);
+                    }
+                    while (formaPago < 1 || formaPago > 4);
+
+                    // Cambiar la forma de pago de acuerdo al ID del cliente
+                    modificarFormaPago(&turnos, clienteid, formaPago);  // Llamamos a la función para modificar la forma de pago
                     break;
                 case 7:
                     printf("Cancelar un turno.\n");
+
+                    // Solicitar la cancelación de un turno por ID de cliente
+                    printf("\n¿Desea cancelar un turno?\n");
+                    printf("Ingrese el ID del cliente a cancelar turno: ");
+                    scanf("%s", clienteid);  // Leemos el ID del cliente
+
+                    cancelarTurno(&turnos, clienteid);  // Llamamos a la función para cancelar el turno
+
                     break;
                 case 8:
                     printf("Confirmar asistencia de turno.\n");
+                    printf("\nIngrese el ID del cliente para confirmar asistencia: ");
+                    scanf("%s", clienteid);
+                    confirmarAsistenciaTurno(&turno,clienteid);
                     break;
                 case 9:
                     printf("Mostrar turnos no realizados.\n");
+                    mostrarTurnosNoRealizados(&turno);
                     break;
                 case 0:
                     printf("Volviendo al menu principal...\n");
@@ -1199,7 +1203,7 @@ int main()
                     eliminarCliente(&clientes);
                     break;
                 case 4:
-                    printf("falta archivo");
+                    precargarClientesDesdeArchivo(&cliente);
                     break;
                 case 5:
                     mostrarTodosLosClientes(&clientes);
@@ -1208,7 +1212,7 @@ int main()
                     printf("Volviendo al menu principal...\n");
                     break;
                 default:
-                    printf("Opci�n inv�lida. Intente nuevamente.\n");
+                    printf("Opcion invalida. Intente nuevamente.\n");
                 }
                 printf("Presione cualquier tecla para continuar...\n");
                 getch();
@@ -1228,9 +1232,30 @@ int main()
                     break;
                 case 2:
                     printf("Guardar turnos segun forma de pago.\n");
+                    // Almacenar turnos pagados en un archivo
+                    printf("\nIngrese la forma de pago para almacenar los turnos pagados: ");
+                    printf("1. Débito\n");
+                    printf("2. Crédito\n");
+                    printf("3. Efectivo\n");
+                    printf("4. QR\n");
+                    do {
+                    printf("Seleccione forma de pago para almacenar los turnos pagados (1-4): ");
+                    scanf("%d", &formaPago);
+                    } while (formaPago < 1 || formaPago > 4);
+
+                    almacenarTurnosPagados(&turnos, formaPago);  // Llamamos a la función para almacenar los turnos pagados
                     break;
                 case 3:
                     printf("Mostrar turnos por tratamiento.\n");
+                    // Mostrar los tratamientos disponibles
+                    mostrarTratamientos();
+                    // Solicitar al usuario que ingrese el ID del tratamiento a buscar
+                    int tratamiento_id;
+                    printf("Ingrese el ID del tratamiento que desea buscar: ");
+                    scanf("%d", &tratamiento_id);
+
+                    // Llamamos a la función para mostrar los turnos para el tratamiento con el ID dado
+                    mostrarTurnosPorTratamiento(&turnos, tratamiento_id);
                     break;
                 case 0:
                     printf("Volviendo al menu principal...\n");
